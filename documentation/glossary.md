@@ -1,75 +1,66 @@
 <div class="header-banner pineapple">
-     <div class="header-label pineapple">Glossary</div>
+     <div class="header-label pineapple">术语表</div>
 </div>
 
-*This page explains how the built-in glossary feature can be utilized.*
+*本页介绍如何使用内置的术语表功能。*
 
-## 📜 Content
+## 📜 目录
 [toc]
 
-## 1. What is a glossary?
+## 1. 什么是术语表？
 
-A glossary is a collection of terms with their definitions. It's a great way to keep track of your game's lore, characters, and more.
+术语表是一组词条及其释义的集合。它是记录游戏世界观、角色以及更多内容的绝佳方式。
 
-Some Visual Novels use a glossary to explain terms that may be unfamiliar to the player. For example, if your game is set in a fantasy world, you may want to explain the unique species that live in your world.
+一些视觉小说会用术语表来解释玩家可能不熟悉的词。例如，如果你的游戏设定在奇幻世界，你也许想解释这个世界里独有的种族。
 
-### 1.1 What does a Dialogic glossary do?
+### 1.1 Dialogic 的术语表能做什么？
 
-If a glossary contains keys, Dialogic will automatically use the `name` and `alternatives` properties of each
-glossary entry to highlight them and provide a tooltip with the definition if hovered over.
+如果术语表包含键，Dialogic 会自动使用每个词条的 `name` 和 `alternatives` 属性来高亮它们，并在鼠标悬停时提供带有释义的工具提示。
 
-## 2. How do I translate glossaries?
+## 2. 如何翻译术语表？
 
-Take a look at [Translating Glossaries](translation.md#25-translating-glossaries) for more information.
+更多信息请查看[翻译术语表](translation.md#25-翻译术语表)。
 
-## 3. Implementation
+## 3. 实现
 
 > [!NOTE]
-> This section is aimed at programmers who may want to understand how the glossaries work under the hood.
+> 本节面向想要了解术语表内部工作原理的程序员。
 
 
-A glossary is a text resource file (`tres`) and after each change to the
-glossary, it has to be saved to the disk or the changes won't persist.
+术语表是一个文本资源文件（`tres`），每次改动术语表之后，都必须把它保存到磁盘，否则改动不会保留。
 
-Furthermore, it has an `entries` property, containing an `Array` of
-`Dictionary`s, whereas each `Dictionary` represents a glossary entry.
+此外，它有一个 `entries` 属性，包含由 `Dictionary` 组成的 `Array`，其中每个 `Dictionary` 代表一个术语表词条。
 
-### 3.1 Translation ID
+### 3.1 翻译 ID
 
-Once translated, each entry will have a unique `_translation_id`.\
-The `_translation_id` will be added to `_translation_keys` glossary property,
-mapping glossary name properties
-to their entry array index.
+一旦完成翻译，每个词条都会拥有一个唯一的 `_translation_id`。\
+`_translation_id` 会被添加到术语表的 `_translation_keys` 属性中，
+把术语表的名称属性映射到它们对应词条在数组中的索引。
 
 
-### 3.2 Alias Keys
+### 3.2 别名键
 
-An entry key is a unique identifier for a glossary entry, either a name, an
-alternative (alias), or an entry translation ID (CSV key).
+词条键是术语表词条的唯一标识符，可以是名称、替代名（别名），或词条的翻译 ID（CSV 键）。
 
-The aliases are used to map the entry to the true glossary entry key, allowing the code
-to map the glossary word to its glossary entry.
+别名用于把词条映射到真正的术语表词条键，让代码能把术语表中的词映射到它的术语表词条。
 
-Additionally, the entry's translation ID allows the code to map a translated glossary
-word to its translation ID and then to the glossary entry using the `_translation_keys`. \
-The glossary entry IDs are combined, using the glossary ID and then the entry ID.
-This matches the translation CSV keys for translated glossaries:
-`Glossary/3b/6c/name`.
+此外，词条的翻译 ID 让代码可以把翻译后的术语表词映射到它的翻译 ID，再通过 `_translation_keys` 映射到术语表词条。\
+术语表词条的 ID 是组合而成的，先使用术语表 ID，然后是词条 ID。
+这与已翻译术语表的翻译 CSV 键一致：
+`Glossary/3b/6c/name`。
 
 
-### 3.2 Accessing glossary properties
+### 3.2 访问术语表属性
 
-As a rule of thumb, if you want to access the glossary from code, do not access
-the `_` prefixed aforementioned properties: `_translation_id`,
-`_translation_keys`. They may change over the course of Dialogic's
-development.
+经验法则是：如果你想从代码中访问术语表，不要访问前面提到的那些带 `_` 前缀的属性：`_translation_id`、
+`_translation_keys`。它们可能会在 Dialogic 的开发过程中发生变化。
 
-Instead, look for the helper methods on `DialogicGlossary`.
+请改为使用 `DialogicGlossary` 上的辅助方法。
 
 
-### 3.3 How do I get all glossary paths?
+### 3.3 如何获取所有术语表路径？
 
-You can use the following project setting to get all glossary files:
+你可以使用下面的项目设置来获取所有术语表文件：
 ```gdscript
 var glossary_paths: Array[String] = ProjectSettings.get_setting('dialogic/glossary/glossary_files', [])
 ```

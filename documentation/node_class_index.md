@@ -1,11 +1,11 @@
 
 <div class="header-banner purple">
-<div class="header-label purple">Class Reference Index</div>
+<div class="header-label purple">类参考索引</div>
 </div>
 
-*All node classes from the Dialogic 2 (Alpha 18) source code.*
+*Dialogic 2（Alpha 18）源代码中的全部节点类。*
 
-- [Node]()
+- [节点]()
     - [BackgroundHolder](classes/class_dialogicnode_backgroundholder.md)
     - [ButtonSound](classes/class_dialogicnode_buttonsound.md)
     - [ChoiceButton](classes/class_dialogicnode_choicebutton.md)

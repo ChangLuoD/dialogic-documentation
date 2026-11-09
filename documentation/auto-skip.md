@@ -1,114 +1,114 @@
 <div class="header-banner purple">
-     <div class="header-label purple">Auto-Skip</div>
+     <div class="header-label purple">自动跳过</div>
 
 </div>
 
-*Auto-Skip allows you or the player to quickly advance the timeline.*
+*自动跳过让你或玩家可以快速推进时间线。*
 
-## 📜 Content
+## 📜 目录
 [toc]
 
-## 1. What is Auto-Skip?
+## 1. 什么是自动跳过？
 
-Auto-Skip is the concept of advancing a timeline faster than you can read it.
+自动跳过指的是以快于阅读速度的节奏推进时间线。
 
-In Visual Novels, Auto-Skip helps to navigate already known story branches quickly.
-If your story is not intended to be cyclic, this feature may not be of use to you.
+在视觉小说中，自动跳过可以帮助玩家快速走完已经知道的剧情分支。
+如果你的故事本就不打算让玩家反复游玩，这个功能对你可能没什么用。
 
 ---
 
-## 2. How to use it?
+## 2. 怎么用？
 
-In Dialogic, Auto-Skip can be enabled and modified from code using the `DialogicAutoSkip` object that can be accessed via the Inputs subsytem (e.g. `Dialogic.Inputs.auto_skip`.
+在 Dialogic 中，可以通过 Inputs 子系统访问 `DialogicAutoSkip` 对象，从代码里开启和修改自动跳过（例如 `Dialogic.Inputs.auto_skip`）。
 
-The most common way this feature is used, to provide the player with an Auto-Skip toggle button. This section will teach you how to implement the logic for this.
+这个功能最常见的用法，是给玩家提供一个自动跳过开关按钮。本节会教你怎么实现相应的逻辑。
 
-First, you can set the time each event is allowed to take via the Text settings page inside Dialogic.
+首先，你可以在 Dialogic 的 Text 设置页面里设置每个事件允许占用的时间。
 
 ![header_saving_loading](media/auto_skip_settings.png)
 
-However, there are many settings that are not exposed to the interface!
+不过，还有很多设置没有暴露在界面上！
 
 ---
 
-## 3. Enabling and modifying Auto-Skip
+## 3. 开启与修改自动跳过
 
-All Auto-Skip settings are variables on the `DialogicAutoSkip` class. This class can be accessed via `Dialogic.Inputs.auto_skip`. It has a bunch of useful settings:
+自动跳过的所有设置都是 `DialogicAutoSkip` 类上的变量。该类可以通过 `Dialogic.Inputs.auto_skip` 访问。它有一堆有用的设置：
 
-- `enabled: bool` *If true, dialogic will Auto-Skip.*
+- `enabled: bool` *如果为 true，Dialogic 会自动跳过。*
 
-**Disable Conditions**
+**禁用条件**
 
-If these settings are on, they tell dialogic to automatically disable Auto-Skip under certain conditions/at certain moments.
+如果这些设置处于开启状态，它们会让 Dialogic 在特定条件/特定时机自动关闭自动跳过。
 
-- `disable_on_user_input: bool` *If true (by default) dialogic will disable Auto-Skip when the Dialogic Input Action is triggered.*
+- `disable_on_user_input: bool` *如果为 true（默认），当 Dialogic 的输入动作被触发时，Dialogic 会关闭自动跳过。*
 
-- `disable_on_unread_text: bool` *If true (by default) dialogic will disable Auto-Skip when any unread text is reached.*
+- `disable_on_unread_text: bool` *如果为 true（默认），当遇到任何未读文字时，Dialogic 会关闭自动跳过。*
 
 ```info
-`disable_on_unread_text` requires Dialogic's History feature to be enabled.
+`disable_on_unread_text` 需要开启 Dialogic 的历史记录功能。
 ```
 
-**Enable Condition**
+**启用条件**
 
-- `enable_on_seen: bool` *If true (by default) dialogic will enable Auto-Skip whenever a text event is reached that you visited before.*
+- `enable_on_seen: bool` *如果为 true（默认），每当遇到你之前读过的文本事件时，Dialogic 就会开启自动跳过。*
 
-**General Settings**
+**常规设置**
 
-- `skip_voice: bool` *If true (by default) Auto-Skip will skip voice events instead of playing them.*
+- `skip_voice: bool` *如果为 true（默认），自动跳过会跳过语音事件，而不是播放它们。*
 
-- `time_per_event: float` *Defines the time for each event (equivalent to the setting in the Settings>Text page).*
+- `time_per_event: float` *定义每个事件的时间（等同于 Settings>Text 页面中的设置）。*
 
-So you can enable Auto-Skip like this:
+所以你可以这样开启自动跳过：
 
 ```gdscript
 Dialogic.Inputs.auto_skip.enabled = !Dialogic.Inputs.auto_skip.enabled
 ```
 
-You can use this to quickly advance through your timelines, for example, for debugging purposes. For this you should disable the `disable_on_unread_text` setting like this:
+你可以用它在时间线中快速前进，例如为了调试。为此你应当像下面这样关掉 `disable_on_unread_text` 设置：
 
 ```gdscript
 Dialogic.Inputs.auto_skip.disable_on_unread_text = false
 ```
 
 > [!TIP]
-> This is implemented when you use `Play Timeline`. You can enable auto-skip there with the MiddleMouseButton and stop it with any user input.
+> 在你使用 `Play Timeline` 时已经实现了这一点。你可以在那里用鼠标中键开启自动跳过，并用任意用户输入停止它。
 
 
-## 4. Reacting to Auto-Skip
+## 4. 响应自动跳过
 
-### 4.1 Signals
+### 4.1 信号
 
-When Auto-Skip is enabled or disabled, the class will emit the
-`DialogicAutoSkip.toggled` signal.
+自动跳过被开启或关闭时，该类会发出
+`DialogicAutoSkip.toggled` 信号。
 
-Here is an example on how to connect to the signal:
+下面是一个连接该信号的例子：
 
 ```gdscript
-# Connect to the signal.
+# 连接信号。
 func _init():
     Dialogic.Inputs.auto_skip.toggled.connect(_on_auto_skip_toggled)
 
-## If Auto-Skip disables, we want to stop the timer.
+## 如果自动跳过被关闭，我们想停止计时器。
 func _on_auto_skip_toggled(is_enabled: bool) -> void:
-    # Your code reacting to Auto-Skip changes goes here!
+    # 在这里写你响应自动跳过变化的代码！
 ```
 
-### 4.2 In Custom Events
+### 4.2 在自定义事件中
 
-Events come in all sort of behaviours: Awaiting signals, instantly executing, a mix of conditions, playing audio, …
+事件的行为多种多样：等待信号、立即执行、条件混合、播放音频……
 
-It's impossible to let an Auto-Skip handle all of these effects gracefully from the outside. Therefore, Auto-Skip's behaviour must be implemented by each Timeline Event.
+不可能让自动跳过从外部优雅地处理所有这些效果。因此，自动跳过的行为必须由每个时间线事件自己实现。
 
-#### What type of event do I have?
+#### 我的事件属于哪种类型？
 
-Does your event finish instantly? Is it playing audio? Awaiting a signal? These situations must be implemented differently.
+你的事件会立即结束吗？它在播放音频吗？在等待信号吗？这些情况必须用不同的方式实现。
 
-If you await signals, you can use the `DialogicAutoSkip.toggled` to cause your event to react to Auto-Skip.
-The Text Event uses this signal to skip the text animation and then advance the timeline.
+如果你在等待信号，可以用 `DialogicAutoSkip.toggled` 让你的事件响应自动跳过。
+文本事件就是用这个信号来跳过文字动画，然后推进时间线。
 
-If you await a timer or perform an action lasting multiple frames, you can use the `time_per_event` variable to limit the time your event may take.
-Here is a code snippet to give you an idea:
+如果你在等待计时器，或执行需要持续多帧的操作，可以用 `time_per_event` 变量限制事件可占用的时间。
+下面这段代码可以给你一个思路：
 
 ```gdscript
 var animation_length: float = 10.0
@@ -118,4 +118,4 @@ if Dialogic.Inputs.auto_skip.enabled:
     animation_length = min(time_per_event, animation_length)
 ```
 
-This code will cap the animation length to the maximum time set if Auto-Skip is enabled.
+这段代码会在自动跳过开启时，把动画时长限制在设定的最大时间内。

@@ -1,11 +1,11 @@
 
 <div class="header-banner purple">
-<div class="header-label purple">Subsystem Class Reference Index</div>
+<div class="header-label purple">子系统类参考索引</div>
 </div>
 
-*All subsystems from the Dialogic 2 (Alpha 18) source code.*
+*Dialogic 2（Alpha 18）源代码中的全部子系统。*
 
-- [Subsystem]()
+- [子系统]()
     - [Audio](classes/subsystem_audio.md)
     - [Backgrounds](classes/subsystem_backgrounds.md)
     - [Containers](classes/subsystem_containers.md)

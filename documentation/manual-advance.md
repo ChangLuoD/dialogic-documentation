@@ -1,35 +1,35 @@
 <div class="header-banner purple">
-     <div class="header-label purple">Manual-Advance</div>
+     <div class="header-label purple">手动前进</div>
 </div>
 
-*Manual-Advance allows your player to advance the timeline by using input mapped to `dialogic_default_action` (Project Settings → Input Map).*
+*手动前进让你的玩家可以用映射到 `dialogic_default_action` 的输入来推进时间线（项目设置 → Input Map）。*
 
-## 📜 Content
+## 📜 目录
 [toc]
 
-## 1. What is Manual-Advance?
+## 1. 什么是手动前进？
 
-Manual-Advance is a feature in Dialogic that allows players to progress through the timeline *with* inputs! It's enabled by default: The player clicks, and the timeline moves down its stack of events.
+手动前进是 Dialogic 的一项功能，让玩家*通过*输入来推进时间线！它默认是开启的：玩家点击一下，时间线就在事件组成的栈上往前走一步。
 
-## 2. Changing Manual-Advance via Code
+## 2. 通过代码修改手动前进
 
-Dialogic's Manual-Advance class can be easily accessed via the Inputs subsystem and allows you to change Manual-Advance during your game. It also has a number of settings not exposed to the dialogic interface.
+通过 Inputs 子系统可以很方便地访问 Dialogic 的手动前进类，从而在游戏运行期间修改手动前进。它还有一些未暴露在 Dialogic 界面上的设置。
 
-All of this functionality lives in `Dialogic.Inputs.Manual-Advance` an `DialogicManualAdvance` object.
-We can limit the player from interacting with the timeline to display a scripted timeline section.
+所有这些功能都位于 `Dialogic.Inputs.Manual-Advance`，一个 `DialogicManualAdvance` 对象中。
+我们可以限制玩家与时间线的交互，以便展示一段写好的时间线内容。
 
-### 2.1 Limit Player Inputs via Code
-It's straightforward to script this behaviour. The following snippet showcases this:
+### 2.1 通过代码限制玩家输入
+用脚本实现这个行为很直接。下面的代码片段展示了做法：
 
 ```gdscript
 Dialogic.Inputs.auto_advance.disabled_until_next_event = true
 ```
 
-In Dialogic, both Manual-Advance and Auto-Advance share the concept of `system`: The system is the feature itself, in this case Manual-Advance. You can prevent players from advancing the timeline:
+在 Dialogic 中，手动前进与自动前进共享 `system` 这一概念：system 指功能本身，在这里就是手动前进。你可以阻止玩家推进时间线：
 
 ```gdscript
-# No more inputs for you, player.
+# 玩家，没有输入给你了。
 Dialogic.Inputs.auto_advance.system_enabled = false
 ```
 
-Additionally, you can call the method `Dialogic.Inputs.auto_advance.is_enabled()` to check if the player can manually advance.
+此外，你可以调用 `Dialogic.Inputs.auto_advance.is_enabled()` 方法来检查玩家是否还能手动推进。

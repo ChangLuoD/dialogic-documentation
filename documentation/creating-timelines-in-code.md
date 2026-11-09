@@ -1,24 +1,24 @@
 <div class="header-banner blurple">
-     <div class="header-label blurple">Creating Timelines in Code</div>
+     <div class="header-label blurple">用代码创建时间线</div>
 </div>
 
-*As timelines and events are just resources, you can create new timelines in code.*
+*由于时间线和事件都只是资源，你可以在代码中创建新的时间线。*
 
-## 📜 Content
+## 📜 目录
 [toc]
 
-# How do I create timelines via code?
+# 如何通过代码创建时间线？
 
-Creating an empty timeline would look like this:
+创建一个空时间线看起来像这样：
 
 ```gdscript
 var timeline : DialogicTimeline = DialogicTimeline.new()
 Dialogic.start_timeline(timeline)
 ```
 
-Of course, the timeline created here doesn't contain events yet. To add events, you can do two things:
+当然，这里创建的时间线还不包含事件。要添加事件，你可以做两件事：
 
-- Create an array of **event resources**:
+- 创建一个**事件资源**数组：
 
 ```gdscript
 var events : Array = []
@@ -29,12 +29,12 @@ events.append(text_event)
 
 var timeline : DialogicTimeline = DialogicTimeline.new()
 timeline.events = events
-# if your events are already resources, you need to add this:
+# 如果你的事件已经是资源，需要加上这一行：
 timeline.events_processed = true
 Dialogic.start(timeline)
 ```
 
-- Create an array of **String**s:
+- 创建一个 **String** 数组：
 
 ```gdscript
 var events : Array = """
@@ -51,10 +51,10 @@ timeline.events = events
 Dialogic.start(timeline)
 ```
 
-*In this case, you have to follow the syntax explained in [this tutorial](timeline-text-syntax.md).*
+*在这种情况下，你必须遵循[本教程](timeline-text-syntax.md)中说明的语法。*
 
-If you wish to create a character resource dynamically in code, you can do the following:
-- Create Character resource in code
+如果你希望在代码中动态创建角色资源，可以这样做：
+- 在代码中创建角色资源
 
 ```gdscript
 var speaker:String = "Fred"

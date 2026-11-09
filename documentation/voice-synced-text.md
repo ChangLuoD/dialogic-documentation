@@ -1,38 +1,37 @@
 <div class="header-banner purple">
-     <div class="header-label purple">Voice-Synced Text</div>
+     <div class="header-label purple">语音同步文本</div>
 </div>
 
-*Syncing text to character voices provides a unique reading experience.*
+*让文本与角色语音同步，可以带来独特的阅读体验。*
 
-## 📜 Content
+## 📜 目录
 [toc]
 
-## 1. What is voice-synced Text?
+## 1. 什么是语音同步文本？
 
-Voice-synced text is a feature in Dialogic that allows you to sync text to playing character voices.
+语音同步文本是 Dialogic 中的一项功能，可以让你把文本与正在播放的角色语音同步。
 
-This feature is perfect for visual novels with a lot of voice acting.
-The player may choose to use [Auto-Advance](auto-advance.md) to automatically progress through the timeline while syncing the text to the voice lines instead of letting the text prematurely appear.
+该功能非常适合有大量配音的视觉小说。
+玩家可以选择使用[自动前进](auto-advance.md)，在时间线中自动推进，同时让文本与语音台词同步，而不是让文本过早地显示出来。
 
-In the end, this feature is more of a preference. Players may start reading slower and do not have to wait for voice lines to finish.
+归根结底，这更多是一种偏好。玩家可以读得更慢，而且不必等语音台词播完。
 
 ---
 
-## 2. How do I enable the feature?
+## 2. 如何启用该功能？
 
-The voice-synced text feature must be enabled via the Dialogic API. Take a look at the following code:
+语音同步文本功能必须通过 Dialogic API 启用。看看下面的代码：
 
 ```gdscript
 Dialogic.Text.set_text_voice_synced(true)
 ```
 
-We are suggesting the player decides whether they want this feature enabled.
+我们建议让玩家自己决定是否启用该功能。
 
 ---
 
-## 3. Limitations
+## 3. 限制
 
-This feature is based on the length of the audio playing; it does not respect
-the speech pattern of the voice line.
+该功能基于正在播放的音频长度；它不会遵循语音台词的语流节奏。
 
-Auto-Pauses on letters will be ignored.
+针对字母的自动暂停将被忽略。

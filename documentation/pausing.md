@@ -1,10 +1,10 @@
 <div class="header-banner purple">
-     <div class="header-label purple">Pausing</div>
+     <div class="header-label purple">暂停</div>
 </div>
 
-## 📜 Content
+## 📜 目录
 [toc]
 
-# How do I pause the timeline?
+# 如何暂停时间线？
 
-You can pause/resume the currently running dialog with `Dialogic.paused = true` and `Dialogic.paused = false`. This does not pause the scene tree.
+你可以用 `Dialogic.paused = true` 和 `Dialogic.paused = false` 暂停/继续当前正在运行的对话。这不会暂停场景树。

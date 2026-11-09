@@ -1,47 +1,47 @@
 <div class="header-banner dawn">
-     <div class="header-label dawn">Timeline Text Syntax</div>
+     <div class="header-label dawn">时间线文本语法</div>
 </div>
 
-*Timelines are saved in a text format, which means that you can use any text-editing software to edit and create them. The built-in text editor provides useful autocompletion and syntax highlighting.*
+*时间线以文本格式保存，这意味着你可以用任何文本编辑软件来编辑和创建它们。内置的文本编辑器提供了实用的自动补全和语法高亮。*
 
-*For Dialogic to register your timeline file, it has to use the `.dtl` extension!*
+*Dialogic 要识别你的时间线文件，它必须使用 `.dtl` 扩展名！*
 
-## 📜 Content
+## 📜 目录
 
 [toc]
 
-## About short code events
+## 关于短代码事件
 
-Most events follow a shortcodes-like style:
+大多数事件采用类似短代码的风格：
 
 ```dtl
 [background arg="res://icon.png" fade="1.0"]
 ```
 
-The order of the parameters is not relevant, but they have to be separated by at least one space. All parameters, regardless of type, have to be contained in double quotation marks.
+参数的顺序无关紧要，但它们之间必须至少用一个空格分隔。所有参数，无论是什么类型，都必须用双引号括起来。
 
-To find all the parameters you can use on each event, check out their documentation by searching for their class in the Godot Help or this documentation.
+要了解每个事件可用的全部参数，可以在 Godot 帮助或本文档中搜索它们对应的类，查看其文档。
 
-## About special events
+## 关于特殊事件
 
-Some events have a custom syntax to make writing them easier. This includes:
+有些事件带有自定义语法，以便更容易编写。包括：
 
-### Text Event
+### 文本事件
 
 ```dtl
-A wonderful text event, said by noone in particular.
+一个精彩的文本事件，由某个不知名的人说出。
 
-Emilio: Hello and welcome!
+Emilio: 你好，欢迎！
 
-Emilio (excited): I'm excited cann you tell?
+Emilio (excited): 我很兴奋，你看得出来吗？
 
-Emilio: This is a text event with \
-multiple lines. Isn't that great? It is!
+Emilio: 这是一个带 \
+多行的文本事件。很棒吧？确实！
 ```
 
-Ending a text event with `\` will make it include the next line as well.
+在文本事件末尾加上 `\` 会让它把下一行也包含进来。
 
-### Character event
+### 角色事件
 
 ```dtl
 join Emilio (happy) center [animation="Bounce In"]
@@ -51,11 +51,11 @@ leave Emilio [animation="Bounce Out" length="0.3"]
 update Emilio (excited) left [animation="Tada" wait="true" repeat="3" move_time="0.3"]
 ```
 
-*Check the [Character Event](./event-character.md) documentation for more information and examples.*
+*更多信息和示例请查看[角色事件](./event-character.md)文档。*
 
-### Choice event
+### 选项事件
 
-The `|` can be used to put logic behind the choice option.
+可以用 `|` 把逻辑加到选项背后。
 
 ```dtl
 - Yes
@@ -63,103 +63,103 @@ The `|` can be used to put logic behind the choice option.
 - Maybe | [if {Stats.Charisma} > 10] [else="disable" alt_text="Maybe [too insecure]"]
 ```
 
-### Condition event
+### 条件事件
 
 ```dtl
 if {Player.Wisdom} > 3:
-    # dialogics syntax is indentation based!
+    # Dialogic 的语法基于缩进！
 elif {Player.Health} <= 10:
-    # some events
+    # 一些事件
 else:
-    #...
+    #...
 ```
 
-### Set Variable event
+### 设置变量事件
 
 ```dtl
 set {MyVariable} += 10
 ```
 
-Supported Operators are =, += , -= , *=, /=
+支持的运算符有 =、+=、-=、*=、/=
 
-### Comment event
+### 注释事件
 
 ```dtl
-# Some comment
+# 一些注释
 ```
 
-### Label event
+### 标签事件
 
 ```dtl
 label LabelIdentifier
 
-# a label with a display name
-label LabelIdentifier (Display Name)
+# 带显示名称的标签
+label LabelIdentifier (显示名称)
 ```
 
-### Jump event
+### 跳转事件
 
 ```dtl
 jump LabelIdentifier
 
-# Jump to a label in another timeline
+# 跳转到另一个时间线中的标签
 jump TimelineName/LabelIdentifier
 
-# Jump to the beginning of another timeline
+# 跳转到另一个时间线的开头
 jump TimelineName/
 ```
 
-### Return event
+### 返回事件
 
 ```dtl
 return
 ```
 
-### Do/Call event
+### Do/Call 事件
 
 ```dtl
 do Autoload.method("argument")
 ```
 
-## About indentation
+## 关于缩进
 
-Timelines use TAB indentation to know what events belong to a choice or condition block. Only changes in indentation are considered, so it doesn't really matter how much you indent, as long as you are consistent within one block.
+时间线使用 TAB 缩进来判断哪些事件属于某个选项或条件块。只会考虑缩进的变化，所以缩进多少其实并不重要，只要在同一个块内保持一致即可。
 
-## Example timeline
+## 时间线示例
 
 ```dtl
 [background arg="res://assets/backgrounds/dialogic_factory.png"]
 
 join Jowan left
-Jowan (excited): Hello and welcome to[portrait=confused]...[pause=0.5] Wait? What is this?
+Jowan (excited): 你好，欢迎来到[portrait=confused]……[pause=0.5] 等等？这是什么？
 
 join Emilio (happy) right
-Emilio: Well, this is is the example timeline.
+Emilio: 嗯，这就是示例时间线。
 
-Jowan: I thought this was a cool new feature?
+Jowan: 我还以为这是一个很酷的新功能？
 
-Emilio: Nah, sorry.
+Emilio: 不，抱歉。
 
-Jowan (sad): It's okay.
+Jowan (sad): 没关系。
 
-# Some choices jump back to this
+# 一些选项会跳回这里
 label WhatAbout
 
-Jowan (default): So what should this example be about?
-- How to bake cookies
-    Emilio (confused): Wait that hasn't to do with dialogic?!
-    jump WhatAbout
+Jowan (default): 那么这个示例应该讲些什么呢？
+- 怎样烤曲奇
+    Emilio (confused): 等等，这和 Dialogic 有关系吗？！
+    jump WhatAbout
 
-- How to reach the moon | [if {Player.Name} == "NASA"]
-    Jowan (angry): NASA! It's you again. This is for making dialogs!\
-    Please ask someone else about the moon!.
-    
-    jump WhatAbout
+- 怎样登上月球 | [if {Player.Name} == "NASA"]
+    Jowan (angry): NASA！又是你。这里是做对话的地方！\
+    关于月球的问题请去问别人！
+    
+    jump WhatAbout
 
-- How to write timelines in text format
-    Jowan: Oh, well it's pretty intuitive.[pause= 0.2][portrait=questioning] I hope.
-    
-    Emilio: Let's hope it's easy as well.
+- 怎样以文本格式编写时间线
+    Jowan: 哦，其实挺直观的。[pause= 0.2][portrait=questioning] 我希望如此。
+    
+    Emilio: 希望它也同样简单。
 
 [end_timeline]
 ```

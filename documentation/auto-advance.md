@@ -1,99 +1,98 @@
 <div class="header-banner purple">
-     <div class="header-label purple">Auto-Advance</div>
+     <div class="header-label purple">自动前进</div>
 </div>
 
-*Auto-Advance allows you to advance the timeline without user input.*
+*自动前进让你无需玩家输入即可推进时间线。*
 
-## 📜 Content
+## 📜 目录
 [toc]
 
-## 1. What is Auto-Advance?
+## 1. 什么是自动前进？
 
-Auto-Advance is an experience-changing feature in Dialogic that allows players to automatically progress through the timeline without requiring user input!
-It's particularly useful for providing a hands-free experience to your players, offering an alternative to traditional "click-to-advance" methods in games.
+自动前进是 Dialogic 中一项改变体验的功能，它让玩家无需手动输入就能自动走完时间线！
+它特别适合为玩家提供无需动手的体验，作为游戏里传统「点击推进」方式的一种替代。
 
-You may also know this feature by the names "auto-forward" or simply "auto".
+你可能也见过它叫「auto-forward」，或者干脆就叫「auto」。
 
 ---
 
-## 2. Main Settings
+## 2. 主要设置
 
-In Dialogic's Settings tab, under the Text section, you can find the main Auto-Advance settings. Hover over the tooltip icons to learn more about each setting.
+在 Dialogic 的 Settings 标签页中，Text 分区下可以找到自动前进的主要设置。把鼠标悬停在提示图标上，可以了解每项设置的更多信息。
 ![header_saving_loading](media/auto_advance_settings.png)
 
-#### 2.1 Additional Delay
+#### 2.1 额外延迟
 
-One critical setting is the `Additional Delay`, which allows you to choose between **Per Character** and **Per Word**. These settings modify the pace at which text is displayed, adding extra delays either on character or word count.
+一个关键设置是 `Additional Delay`，它让你可以在 **Per Character**（按字）与 **Per Word**（按词）之间选择。这些设置会改变文字显示的速度，按字数或词数追加额外延迟。
 
-Some languages, for instance Japanese, don't separate words by spaces. Dialogic uses the popular whitespace used by the spacebar to determine when a word ends and another begins. If you plan on providing multiple localisations, you can set both settings via the API.
+有些语言（例如日语）不用空格分隔单词。Dialogic 用空格键输入的那种空白字符来判断一个词在哪里结束、另一个词从哪里开始。如果你打算提供多种本地化版本，可以通过 API 同时设置这两项。
 
-##### Ignored Characters
+##### 忽略字符
 
-These characters will be ignored when counting the characters. This feature allows you to further fine-tune your Auto-Advance experience. If you don't need it, simply toggle it off.
+这些字符在计数时会被忽略。这个功能可以让你进一步微调自动前进的体验。如果你用不到，把它关掉就好。
 
 ---
 
-## 3. Changing Auto-Advance from code
+## 3. 通过代码修改自动前进
 
-Dialogic's Auto-Advance class can be easily accessed via the Inputs subsystem and allows you to change Auto-Advance during your game. It also has a number of settings not exposed to the dialogic interface.
+通过 Inputs 子系统可以很方便地访问 Dialogic 的自动前进类，从而在游戏运行期间修改自动前进。它还有一些未暴露在 Dialogic 界面上的设置。
 
-All of this functionality lives in `Dialogic.Inputs.auto_advance` an `DialogicAutoAdvance` object.
+所有这些功能都位于 `Dialogic.Inputs.auto_advance`，一个 `DialogicAutoAdvance` 对象中。
 
-Additionally, you can force an advance by emitting the `autoadvance` signal: `Dialogic.Inputs.auto_advance.autoadvance.emit()`.
+此外，你可以通过发出 `autoadvance` 信号来强制推进：`Dialogic.Inputs.auto_advance.autoadvance.emit()`。
 
-### 3.1 Settings/Properties
+### 3.1 设置/属性
 
-There are two types of settings/properties:
+设置/属性有两类：
 
-#### Enable conditions
+#### 启用条件
 
 - `enabled_until_next_event: bool`
 - `enabled_forced: bool`
 - `enabled_until_user_input: bool`
 
-As long as one of the enable conditions is `true`, Auto-Advance will continue.
-This allows stacking the reasons why Auto-Advance has been enabled. Imagine, the player enables Auto-Advance, but the Text event forces it on until the next event.
+只要有一个启用条件为 `true`，自动前进就会继续。
+这样就可以把启用自动前进的多个原因叠加起来。设想一下：玩家开启了自动前进，同时文本事件又把它强制开启到下一个事件为止。
 
-Thanks to the multiple enable conditions, if the player disables Auto-Advances,
-it will still carry on until the next event.
+多亏了多个启用条件，即使玩家关掉了自动前进，
+它仍会继续到下一个事件为止。
 
-You can turn any of the enable-variables to `true` to enable Auto-Advance. If you have an Auto-Advance button, you can use the following code to enable the feature:
+把任意一个启用变量设为 `true` 就能开启自动前进。如果你有一个自动前进按钮，可以用下面的代码来开启该功能：
 
 ```gdscript
 Dialogic.Inputs.auto_advance.enabled_until_user_input = true
 ```
 
-#### Behaviour changing settings
+#### 改变行为的设置
 
-- `fixed_delay: float` *Same as the base delay in the Settings*
-- `per_word_delay: float` *Additional delay multiplied by the word count*
-- `per_character_delay: float` *Additional delay multiplied by character count*
-- `await_playing_voice: bool` *If true (by default) Auto-Advance will wait until voice lines have finished*
+- `fixed_delay: float` *与设置中的基础延迟相同*
+- `per_word_delay: float` *额外延迟乘以词数*
+- `per_character_delay: float` *额外延迟乘以字符数*
+- `await_playing_voice: bool` *如果为 true（默认），自动前进会等待语音播完*
 
-##### Per Character and Per Word Delays
+##### 按字延迟与按词延迟
 
-You can see that using these properties you can have both per word and character delays which add up.
+可以看到，使用这些属性你可以同时设置按词延迟与按字延迟，二者会相加。
 
-To accommodate languages without spaces between words, you can adjust the `per_word_delay` and `per_character_delay` variables when changing language.
+为了适配词与词之间没有空格的语言，你可以在切换语言时调整 `per_word_delay` 与 `per_character_delay` 变量。
 
-Here's an example of how to configure these settings in your script:
+下面是一个在脚本中配置这些设置的例子：
 
 ```gdscript
-# We can change the settings by directly writing to the returned dictionary.
+# 我们可以直接写入返回的字典来修改设置。
 Dialogic.Inputs.auto_advance.per_word_delay = 0.3
 Dialogic.Inputs.auto_advance.per_character_delay = 0.1
 ```
 
-### 3.2 Toggled Signal
+### 3.2 切换信号
 
-If you want to be informed about changes in Auto-Advance's state, you can use the
-`Dialogic.Inputs.auto_advance.toggled` signal.
+如果你想在自动前进状态变化时收到通知，可以使用 `Dialogic.Inputs.auto_advance.toggled` 信号。
 
 ```gdscript
 signal toggled(enabled: bool)
 ```
 
-If you are interested in how Dialogic uses this signal internally, the `Inputs` subsystem connects to this signal:
+如果你好奇 Dialogic 内部是怎么使用这个信号的：`Inputs` 子系统会连接它：
 
 ```gdscript
 Dialogic.Inputs.autoadvance.toggled.connect(_on_autoadvance_toggled)
@@ -101,28 +100,26 @@ Dialogic.Inputs.autoadvance.toggled.connect(_on_autoadvance_toggled)
 
 ---
 
-## 4. Modifying the reading speed
+## 4. 调整阅读速度
 
-For Visual Novels, enabling players to set their text speed is a common practice.
-To provide the same feature using Dialogic, consider setting `Dialogic.Settings.autoadvance_delay_modifier`.
+在视觉小说中，让玩家可以设置文字速度是常见做法。
+如果想用 Dialogic 提供同样的功能，可以考虑设置 `Dialogic.Settings.autoadvance_delay_modifier`。
 
-This setting, located within `Dialogic.Settings`, allows you to fine-tune the
-delay modifier, multiplying "Additional Delay".
-By default, if this value is not set, Dialogic uses a multiplier of 1, causing
-no change to the delay.
+这个设置位于 `Dialogic.Settings` 中，让你可以微调延迟系数，乘以「Additional Delay」。
+默认情况下，如果没有设置该值，Dialogic 会使用系数 1，延迟不会发生变化。
 
 > [!NOTE]
-> Every setting added to `Dialogic.Settings` is automatically saved and loaded by Dialogic for the *player*.
+> 添加到 `Dialogic.Settings` 的每项设置，Dialogic 都会为*玩家*自动保存和加载。
 
 
-## 5. Auto-Advance Text-Effect
+## 5. 自动前进文本特效
 
-By writing `[aa]` or `[aa = 2]` in your text, you can temporarily enable Auto-Advance in a text event and override the delay.
+在文本中写上 `[aa]` 或 `[aa = 2]`，就能在文本事件中临时开启自动前进，并覆盖延迟。
 
-- `[aa]` enables Auto-Advance until (at least) the next text event
+- `[aa]` 会开启自动前进，直到（至少）下一个文本事件
 
-- `[aa=2]` enables Auto-Advance and sets the delay to 2 seconds.
+- `[aa=2]` 会开启自动前进，并把延迟设为 2 秒。
   
-  - This ignores `per_word_delay` and `per_character_delay` but respects `await_playing_voice`.
+  - 这会忽略 `per_word_delay` 与 `per_character_delay`，但依然遵循 `await_playing_voice`。
 
-- `[aa=2?]` does **not** enable Auto-Advance but sets the time to 2 seconds if Auto-Advance is already enabled.
+- `[aa=2?]` **不会**开启自动前进，但如果自动前进已经开启，就把时间设为 2 秒。

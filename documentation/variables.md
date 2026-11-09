@@ -1,89 +1,89 @@
 <div class="header-banner tropical">
-     <div class="header-label tropical">Variables</div>
+     <div class="header-label tropical">变量</div>
 </div>
 
-*Variables are a good way to keep track of all kinds of things during your game.
-Dialogic has an easy-to-use and beginner-friendly variable system built in. However, Dialogic allows you to use outside variables (or Autoload Singletons) just as easily.
-You can also access the Dialogic variables from outside scripts.*
+*变量是在游戏中跟踪各种信息的好办法。
+Dialogic 内置了易用且对新手友好的变量系统。不过，Dialogic 同样允许你轻松使用外部变量（或自动加载单例）。
+你也可以从外部脚本访问 Dialogic 变量。*
 
-To fully utilize these variables, this page contains all you need to know.
+为了充分利用这些变量，本页包含了你需要了解的全部内容。
 
-## 📜 Content
+## 📜 目录
 [toc]
 
-## 1. The Dialogic variable editor
+## 1. Dialogic 变量编辑器
 
-Dialogic variables can be set up in the "Variables" tab. Each variable consists of a name and an initial default value.
+Dialogic 变量可以在「变量」标签页中设置。每个变量由一个名称和一个初始默认值组成。
 
-Variables can be grouped together in folders, which just have a name.
+变量可以分组放在文件夹中，文件夹只有一个名称。
 
-Important: Inside a folder, no item (variable or folder) can have the same name.
+重要：在一个文件夹内，任何项目（变量或文件夹）都不能重名。
 
 ---
 
-## 2. Using variables in the timeline
+## 2. 在时间线中使用变量
 
-### 2.1 Variables in texts
+### 2.1 文本中的变量
 
-In text events, you can insert the value of a dialogic variable by typing `{variable_name}`.
-If your dialogic variable is inside a folder (or multiple folders), you have to specify the whole name separated with dots: `{MyFolder.variable_name}` or `{FolderA.FolderB.variable_name}`
+在文本事件中，你可以输入 `{variable_name}` 来插入一个 Dialogic 变量的值。
+如果你的 Dialogic 变量位于某个文件夹（或多个文件夹）中，就必须用点号分隔写出完整名称：`{MyFolder.variable_name}` 或 `{FolderA.FolderB.variable_name}`
 
-If you want to use a variable from an Autoload write `{AutoloadName.variable}`.
-This syntax also allows calling methods on that autoload. Whatever is returned from the method is inserted into the text: `{Autoload.get_random_name()}`
+如果你想使用自动加载中的变量，请写 `{AutoloadName.variable}`。
+这种语法也允许调用该自动加载上的方法。方法返回的内容会被插入文本：`{Autoload.get_random_name()}`
 
-You can even do simple operations inside the brackets: `{{Player.Health}/10.0+2}`
+你甚至可以在花括号内进行简单的运算：`{{Player.Health}/10.0+2}`
 
-### 2.2 Conditions
+### 2.2 条件
 
-One of the main uses for variables is in conditions: `if`, `elif`, or conditions on choices.
+变量的主要用途之一是在条件中使用：`if`、`elif`，或选项上的条件。
 
-##### Conditions: Visual Editor
+##### 条件：可视化编辑器
 
-In the visual editor, you can simply select the variable from the dropdown and compare it to a value of your choice. If you need something more complex, click the `<E>` button and use the syntax described below.
+在可视化编辑器中，你只需从下拉菜单中选择变量，并把它与你选择的值进行比较。如果需要更复杂的写法，请点击 `<E>` 按钮并使用下面描述的语法。
 
-##### Conditions: Text syntax
+##### 条件：文本语法
 
-In conditions, you can use all the same tricks as in text events and a couple more:
+在条件中，你可以使用与文本事件相同的所有技巧，另外还有几个额外的：
 
-- Accessing autoloads: `Autoload.property`
+- 访问自动加载：`Autoload.property`
   
-  - In these conditions, Autoloads don't have to be wrapped in `{}` brackets.*
+  - 在这些条件中，自动加载不必用 `{}` 花括号包裹。*
 
-- Using autoload methods: `Autoload.check_info("Argument", false)`
+- 使用自动加载方法：`Autoload.check_info("Argument", false)`
 
-  - A condition always results in a boolean at the end, using the same rules as GDScript for type conversion.
+  - 条件最终总是得到布尔值，类型转换遵循与 GDScript 相同的规则。
 
-- Using variables and typical boolean operators (`==`, `!=`, `<`, `>`, `<=`, `>=`, `not`, `and`, `or`, brackets):
+- 使用变量和典型的布尔运算符（`==`、`!=`、`<`、`>`、`<=`、`>=`、`not`、`and`、`or`、括号）：
 
-  - `{Player.Health} > 5 or {Player.Luck} > randi()%10`
+  - `{Player.Health} > 5 or {Player.Luck} > randi()%10`
 
-### 2.3 Set Variable event
+### 2.3 设置变量事件
 
-You can change variables in a timeline with the set variable event. This can set dialogic variables as well as autoload variables.
+你可以使用设置变量事件在时间线中更改变量。它既能设置 Dialogic 变量，也能设置自动加载变量。
 
-##### Set Variable: Visual Editor
+##### 设置变量：可视化编辑器
 
-In the visual editor, you can simply select a variable and a value. You can also set the value of an Autoload variable by typing `Autoload.variable` in directly into the variable field and submitting with `Enter` (there is no auto-completion).
+在可视化编辑器中，你只需选择一个变量和一个值。你也可以直接在变量字段中输入 `Autoload.variable` 并按 `Enter` 提交，以此设置自动加载变量的值（没有自动补全）。
 
-The value that it will be set to can be a
+它将被设置为以下类型的值：
 
-- string,
+- 字符串，
 
-- number (float or int),
+- 数字（float 或 int），
 
-- value of another variable,
+- 另一个变量的值，
 
-- complex expression,
+- 复杂表达式，
 
-- random number
+- 随机数
 
-**Complex Expression** allows you to use the full range of possibilities. Behind the scenes, all of these types are expressions; the distinction is only made for a simpler UI.
+**复杂表达式**允许你使用全部可能性。在底层，所有这些类型都是表达式；之所以做出区分，只是为了简化界面。
 
-Expressions follow the syntax described below.
+表达式遵循下面描述的语法。
 
-##### Set Variable: Text syntax
+##### 设置变量：文本语法
 
-The set variable event has a special syntax to make it easy to write and read:
+设置变量事件有一套特殊语法，便于编写和阅读：
 
 ```dtl
 set {variable_name} = 20
@@ -97,38 +97,38 @@ set {Player.Health} += range(10,20).pick_random()
 set Autoload.health = {Player.Health} + 2
 ```
 
-The value is parsed as an expression, similar to what is done with {expressions} inside text events or in conditions. All the same can be done here as well, the only difference is that it won't be converted to string/bool.
+该值会作为表达式解析，与文本事件或条件中的 {expressions} 处理方式类似。这里也能做同样的事情，唯一的区别是它不会被转换成 string/bool。
 
-### 2.4 Text Input event
+### 2.4 文本输入事件
 
-A special kind of set variable event is the `Text Input` event, which allows you to capture a text input the player makes in a variable.
-
----
-
-## 3. Using variables for other cool stuff
-
-#### 3.1 Variables as character names
-
-A character `Display Name` can be a variable. That is the best way to control that character's name during the game. To achieve this, just type `{MyVariableName}` in the display name field in the character editor.
-
-#### 3.2 Variables in glossaries
-
-You can use variables in glossary titles, texts and extras. This is the best way to control the text during the game. You can do all the same things as in the text event.
+`Text Input` 事件是一种特殊的设置变量事件，它允许你把玩家所做的文本输入捕获到一个变量中。
 
 ---
 
-## 4. Using variables outside Dialogic
+## 3. 用变量做其他有趣的事
 
-You might want to access variables from scripts outside dialogic.
+#### 3.1 用变量作为角色名称
 
-You can do so with direct access:
+角色的 `Display Name` 可以是一个变量。这是在游戏过程中控制该角色名称的最佳方式。要做到这一点，只需在角色编辑器的显示名称字段中输入 `{MyVariableName}`。
+
+#### 3.2 术语表中的变量
+
+你可以在术语表的标题、文本和附加内容中使用变量。这是在游戏过程中控制文本的最佳方式。你可以做到与文本事件中完全相同的事情。
+
+---
+
+## 4. 在 Dialogic 之外使用变量
+
+你可能想从 Dialogic 之外的脚本中访问变量。
+
+可以通过直接访问的方式做到：
 
 ```gdscript
 Dialogic.VAR.my_variable = 20
 print(Dialogic.VAR.Group.other_variable)
 ```
 
-You can also do so by string:
+也可以通过字符串的方式做到：
 
 ```gdscript
 Dialogic.VAR.set('my_variable', 20)
@@ -136,51 +136,51 @@ print(Dialogic.VAR.get('Group').get('my_variable'))
 ```
 
 > [!WARNING]
-> Variables are only accessible after the Dialogic autoload is ready, so do not use them before your nodes are ready either!
+> 变量只有在 Dialogic 自动加载就绪之后才可访问，所以也不要在你的节点就绪之前使用它们！
 
 
-Folders (as well as the root "folder") have some methods that might be useful:
+文件夹（以及根「文件夹」）有一些可能有用的方法：
 
-- `folders()` lists all folders in this folder (not strings but `FolderObjects`)
+- `folders()` 列出该文件夹中的所有文件夹（不是字符串，而是 `FolderObjects`）
 
-- `variables(@absolute)` lists the names of all the variables in that folder
+- `variables(@absolute)` 列出该文件夹中所有变量的名称
 
-- `has(@variable_name)` returns true if such a variable exists
+- `has(@variable_name)` 如果存在这样的变量则返回 true
 
-This allows you to do fancy stuff like this:
+这让你可以做出这样的花样：
 
 ```gdscript
 var location = Dialogic.VAR.Towns.folders().pick_random().variables().pick_random()
 ```
 
-Could pick a random house/place if your variables are set up like this:
+如果你的变量是这样设置的，它就能随机挑选一个房子/地点：
 
 ```
-Towns (folder)
+Towns（文件夹）
 
-   - Town A (folder)
+   - Town A（文件夹）
 
-      - CharacterAHouse
+      - CharacterAHouse
 
-      - CharacterBHouse
+      - CharacterBHouse
 
-      - Church
+      - Church
 
-      - School
+      - School
 
-  - Town B (folder)
+   - Town B（文件夹）
 
-      - CharacterCHouse
+      - CharacterCHouse
 
-      - CharacterDHouse
+      - CharacterDHouse
 
-      - University
+      - University
 
-      - Park
+      - Park
 ```
 
-Dialogic.VAR also has:
+Dialogic.VAR 还有：
 
-- `Dialogic.VAR.reset(@variable_path="")` resets the given variable or all variables if none is specified
+- `Dialogic.VAR.reset(@variable_path="")` 重置指定变量；如果未指定，则重置所有变量
 
-- `Dialogic.VAR.parse_variables(@string)` returns the given string with variables replaced. This is what is used by the text event, etc.
+- `Dialogic.VAR.parse_variables(@string)` 返回把变量替换后的给定字符串。文本事件等使用的就是它。

@@ -1,11 +1,11 @@
 
 <div class="header-banner purple">
-<div class="header-label purple">Class Reference Index</div>
+<div class="header-label purple">类参考索引</div>
 </div>
 
-*All resource extending classes from the Dialogic 2 source code.*
+*Dialogic 2 源代码中所有继承 Resource 的类。*
 
-- [Resource]()
+- [资源]()
     - [Character](classes/class_dialogiccharacter.md)
     - [CharacterFormatLoader](classes/class_dialogiccharacterformatloader.md)
     - [CharacterFormatSaver](classes/class_dialogiccharacterformatsaver.md)

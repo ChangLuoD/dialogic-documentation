@@ -1,11 +1,11 @@
 
 <div class="header-banner purple">
-<div class="header-label purple">Class Reference Index</div>
+<div class="header-label purple">类参考索引</div>
 </div>
 
-*All classes from the Dialogic 2 (Alpha 18) source code.*
+*Dialogic 2（Alpha 18）源代码中的所有类。*
 
-- [Subsystem]()
+- [子系统]()
     - [Audio](classes/class_subsystem_audio.md)
     - [Backgrounds](classes/class_subsystem_backgrounds.md)
     - [Containers](classes/class_subsystem_containers.md)
@@ -29,7 +29,7 @@
     - [AutoSkip](classes/class_dialogicautoskip.md)
     - [Background](classes/class_dialogicbackground.md)
 
-- [Event]()
+- [事件]()
     - [Audio](classes/class_dialogicaudioevent.md)
     - [Background](classes/class_dialogicbackgroundevent.md)
     - [Call](classes/class_dialogiccallevent.md)
@@ -57,7 +57,7 @@
     - [Wait](classes/class_dialogicwaitevent.md)
     - [WaitInput](classes/class_dialogicwaitinputevent.md)
 
-- [Resource]()
+- [资源]()
     - [Character](classes/class_dialogiccharacter.md)
     - [CharacterFormatLoader](classes/class_dialogiccharacterformatloader.md)
     - [CharacterFormatSaver](classes/class_dialogiccharacterformatsaver.md)
@@ -68,7 +68,7 @@
     - [TimelineFormatLoader](classes/class_dialogictimelineformatloader.md)
     - [TimelineFormatSaver](classes/class_dialogictimelineformatsaver.md)
 
-- [Node]()
+- [节点]()
     - [BackgroundHolder](classes/class_dialogicnode_backgroundholder.md)
     - [ButtonSound](classes/class_dialogicnode_buttonsound.md)
     - [ChoiceButton](classes/class_dialogicnode_choicebutton.md)
@@ -81,7 +81,7 @@
     - [TextInput](classes/class_dialogicnode_textinput.md)
     - [TypeSounds](classes/class_dialogicnode_typesounds.md)
 
-- [Other]()
+- [其他]()
     - [BackgroundTransition](classes/class_dialogicbackgroundtransition.md)
     - [CharacterEditorMainSection](classes/class_dialogiccharactereditormainsection.md)
     - [CharacterEditorPortraitSection](classes/class_dialogiccharactereditorportraitsection.md)

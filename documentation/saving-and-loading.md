@@ -1,24 +1,24 @@
 <div class="header-banner dawn">
-     <div class="header-label dawn">Saving & Loading</div>
+     <div class="header-label dawn">存档与读档</div>
 </div>
 
-*Obviously, many games require the ability to save and load!*
+*显然，很多游戏都需要存档与读档功能！*
 
-## 📜 Content
+## 📜 目录
 [toc]
 
-## 1. Built-in Saving
+## 1. 内置存档
 
-The saving subsystem allows you to save and load Dialogic timeline states, game thumbnails (screenshots), and extra information to Savegame slots. \
-You want to save the player position or the last seen text? The built-in save system has it all covered!
+存档子系统让你可以把 Dialogic 时间线状态、游戏缩略图（截图）以及额外信息保存到存档槽位中，并在需要时读回来。\
+想保存玩家位置或最后看到的文本？内置存档系统全都帮你搞定了！
 
-Be aware that Savegames uses their name as a folder name; operating systems restrict the allowed characters for folder names.
-It's recommended to rely on the Latin alphabet, numbers, and underscores.
+请注意，存档会以它们的名称作为文件夹名；操作系统对文件夹名允许的字符有限制。
+建议只使用拉丁字母、数字和下划线。
 
-If you don't care about Savegame slots, you can do the following:
+如果你不在意存档槽位，可以这样做：
 
 ```gdscript
-# Example signal handling.
+# 示例信号处理。
 func _on_save_game_button_pressed() -> void:
     Dialogic.Save.save()
 
@@ -26,11 +26,11 @@ func _on_load_game_button_pressed() -> void:
     Dialogic.Save.load()
 ```
 
-However, these methods will take screenshots too, which may affect performance slightly.\
-If you want to prevent this from happening, it gets a bit more verbose:
+不过，这些方法也会一并截图，可能会稍微影响性能。\
+如果你想避免这种情况，写法会略微啰嗦一些：
 
 ```gdscript
-# Example signal handling.
+# 示例信号处理。
 func _on_save_game_button_pressed() -> void:
     Dialogic.Save.save("", false, Dialogic.Save.ThumbnailMode.NONE)
 
@@ -39,27 +39,27 @@ func _on_load_game_button_pressed() -> void:
 ```
 
 
-### 1.1 Take a thumbnail
+### 1.1 拍摄缩略图
 
-If you would like to use thumbnails per Savegame slot, it's recommended to take the screenshot before opening your *Save & Load* layer. \
-This can be achieved by calling `Dialogic.Save.take_thumbnail()` *before* you show the layer; for instance, in the button signal connection, open the layer.
+如果你希望每个存档槽位都有自己的缩略图，建议在打开你的*存档与读档*图层之前先截图。\
+这可以通过在显示图层*之前*调用 `Dialogic.Save.take_thumbnail()` 实现；例如，在按钮的信号连接里先打开图层。
 
-If you go this route, you need to instruct the `Dialogic.Save.save(...)` method to *store only* and *not* take a screenshot.
+如果你采用这种方式，就需要让 `Dialogic.Save.save(...)` 方法*只存储*，而*不要*截图。
 
 ```gdscript
 Dialogic.Save.save(slot_name_variable, false, Dialogic.Save.ThumbnailMode.STORE_ONLY, slot_extra_info)
 ```
 
-This snippet will automatically take the thumbnail saved at `Dialogic.Save.latest_thumbnail` and use it.
+这段代码会自动取用保存在 `Dialogic.Save.latest_thumbnail` 的缩略图。
 
-## 1.2 Saving Extra Info
+## 1.2 保存额外信息
 
-By default, Savegames contain information about Dialogic's timeline and Dialogic variables. If you want to store specific information about a Savegame, we can achieve this by using `Dialogic.Save.set_slot_info(slot_name:String, info: Dictionary)` and `Dialogic.Save.get_slot_info(slot_name: String)` methods. \
-However, the `Dialogic.Save.save(...)` method can simplify our work and skip calling the set method.
+默认情况下，存档里包含 Dialogic 时间线和 Dialogic 变量的信息。如果你想保存某个存档的特定信息，可以使用 `Dialogic.Save.set_slot_info(slot_name:String, info: Dictionary)` 和 `Dialogic.Save.get_slot_info(slot_name: String)` 方法。\
+不过，`Dialogic.Save.save(...)` 方法可以简化这项工作，省去调用 set 方法的步骤。
 
-Extra information is *not* loaded into the Dialogic state info. In other words, it solely serves to provide information *about* a Savegame.
+额外信息*不会*被载入 Dialogic 的状态信息。换句话说，它只用于提供*关于*某个存档的信息。
 
-In the following code snippet, we will save the last used text line and the current time as extra information.
+在下面的代码片段中，我们会把最后使用的文本行和当前时间作为额外信息保存下来。
 
 ```gdscript
 var extra_info := {}
@@ -69,57 +69,57 @@ extra_info["date"] = Time.get_datetime_string_from_system(false, true)
 Dialogic.Save.save(slot_name, false, Dialogic.Save.ThumbnailMode.STORE_ONLY, extra_info)
 ```
 
-## 1.2.1 Accessing Extra Info
+## 1.2.1 读取额外信息
 
-Now, if you want to display your Savegames on your custom Savegame layer, you can access them via `Dialogic.Save.get_slot_info`.
+现在，如果你想在自己的自定义存档图层上显示存档，可以通过 `Dialogic.Save.get_slot_info` 读取它们。
 
-Here is an example on how to access a specific Savegame's extra data:
+下面是一个读取某个存档额外数据的示例：
 
 ```gdscript
-# Safety check, whether our Savegame even exists.
+# 安全检查：我们的存档是否真的存在。
 if Dialogic.Save.has_slot(save_game_name):
      var slot_info_dictionary := Dialogic.Save.get_slot_info(save_game_name)
      var date: String = slot_info_dictionary.get("date", "")
      var text: String = slot_info_dictionary.get("text", "")
 ```
 
-This example checks if a Savegame `save_game_name` exists and if so, gets its extra data.
-From there on, you are free to do anything with the data. For instance, display it on your custom Savegame layer.
+这个示例会检查名为 `save_game_name` 的存档是否存在，如果存在就取出它的额外数据。
+之后，你就可以随意使用这些数据了，例如把它们显示在自定义存档图层上。
 
-### 1.3 Global data
+### 1.3 全局数据
 
 
 
-The simple approach to storing your game data slot-independently is to use the `Dialogic.Settings` subsystem.\
-You can directly store the information on it:
+不依赖槽位、简单地保存游戏数据的方式是使用 `Dialogic.Settings` 子系统。\
+你可以直接往它上面存信息：
 ```gdscript
 Dialogic.Settings.text_speed = 0.05
 ```
 
-On save, the data will be automatically stored in the global save file
+存档时，数据会被自动写入全局存档文件。
 
-However, if you want to write to the global save file directly, you can use the `Dialogic.Save` subsystem:
+不过，如果你想直接写入全局存档文件，可以使用 `Dialogic.Save` 子系统：
 ```gdscript
 func set_player_name(name: String) -> void:
-    # Setting a name for the key `player_name`.
+    # 为键 `player_name` 设置名称。
     Dialogic.Save.set_global_info("player_name", name)
 ```
 
-There is no rule for the global info `key`'s value; being consistent is good, though.
+全局信息的 `key` 取值没有硬性规定，不过保持一致仍是个好习惯。
 
-If you are interested in storing the history of visited texts, take a look at the next chapter.
+如果你对保存已读文本的历史记录感兴趣，请看下一节。
 
 
-### 1.4 Saving Visited Events
+### 1.4 保存已访问的事件
 
-When you play a visual novel and use multiple saves, you may find yourself discovering texts you already read, even on entirely different story branches. \
-By default, Dialogic does *not* save the events players have already visited; however, there are two main ways to get it working.
+在玩视觉小说并使用多个存档时，你可能会在完全不同的剧情分支上再次看到已经读过的文本。\
+默认情况下，Dialogic *不会*保存玩家已经访问过的事件；不过有两种主要方法可以让它生效。
 
-1. The first approach is via the Dialogic Editor. Head to the `Settings` tab and select `History`. From here on, you can decide if you want the already-visited events must auto-save.\
+1. 第一种方法是通过 Dialogic 编辑器。前往 `Settings` 标签页并选择 `History`。在这里，你可以决定是否让已访问的事件自动保存。\
 
-2. This approach is a bit different: The following snippet will manually save the history to a file.
-Use this in case the player has reached the end of the game (credits?) and you want to ensure that the visited events are
-properly updated a last time.
+2. 这种方法略有不同：下面的代码片段会手动把历史记录保存到文件中。
+如果玩家已经到达游戏结局（制作人员名单？），而你想确保已访问的事件
+最后一次被正确更新，就可以使用它。
 
 ```gdscript
 var slot_name := "slot-3-page-2"
@@ -136,7 +136,7 @@ func _reset_visited_history() -> void:
      Dialogic.History.reset_already_visited_history()
 ```
 
-If you prefer to set the configuration via code, take a look at the following snippet:
+如果你更喜欢用代码来设置，可以看看下面的代码片段：
 
 ```gdscript
 func _ready() -> void:
@@ -144,37 +144,36 @@ func _ready() -> void:
     Dialogic.History.save_already_visited_history_on_autosave = true
 ```
 
-The example values will cause the visited event history to automatically save
-on Auto-Save and normal Saves.
+示例中的取值会让已访问事件的历史记录在自动存档和普通存档时自动保存。
 
 
 
-# 2. Handling Savegame Slots
+# 2. 处理存档槽位
 
-A save game slot is identified by its slot name, a unique word that you, as a developer, decide.\
-One way to name the slots could be by their index and the current save game page (if you intend to have many save games). This could result in slots named `slot_3_page_4`.
+存档槽位由它的槽位名称来标识，这是一个由你（开发者）决定的唯一单词。\
+命名槽位的一种方式是使用索引加上当前存档页（如果你的存档很多）。这样得到的槽位名可能是 `slot_3_page_4`。
 
-# 2.1 Check if a Savegame Slot exists
+# 2.1 检查存档槽位是否存在
 
-When you create your own save/load layer, you may want to check whether any of these slots even exist.
+当你自己制作存档与读档图层时，可能需要检查这些槽位是否已经存在。
 
 ```gdscript
 func load_save_game_slot(slot_name: String) -> void:
     if Dialogic.Save.has_slot(slot_name):
-        # Do your logic...
+        # 执行你的逻辑...
 ```
 
-However, you may also use `Dialogic.Save.add_empty_slot(slot_name: String)` and populate the missing slots. If you check using the snippet, it's not necessary at all, though.
+不过，你也可以使用 `Dialogic.Save.add_empty_slot(slot_name: String)` 来填充缺失的槽位。但如果你用上面的片段做了检查，那就完全没必要了。
 
-# 2.2 Delete a Savegame Slot
+# 2.2 删除存档槽位
 
-You can delete a save game slot by using the `Dialogic.Save.delete_slot(slot_name: String)` method.
+你可以使用 `Dialogic.Save.delete_slot(slot_name: String)` 方法删除存档槽位。
 
 
-# 3. Manual Saving
+# 3. 手动存档
 
-If you want to roll your own save and load system, you can use `Dialogic.get_full_state() -> Dictionary` to get the state of Dialogic and then continue saving it the way you want to.\
-Once you are read to load the data back, you will have to use `Dialogic.load_full_state(state: Dictionary)` to get your data back into Dialogic.
+如果你想自己实现一套存档与读档系统，可以用 `Dialogic.get_full_state() -> Dictionary` 获取 Dialogic 的状态，然后按你喜欢的方式保存它。\
+等你准备好把数据读回来时，需要使用 `Dialogic.load_full_state(state: Dictionary)` 把数据重新载入 Dialogic。
 
-Overall, it's better to have an idea *why* you want to do manual saving and take inspiration from Dialogic's `save` and `load` methods.\
-There is a chance that Dialogic already supports your specific loading and saving requirements.
+总的来说，最好先想清楚*为什么*要做手动存档，并从 Dialogic 的 `save` 和 `load` 方法中获取灵感。\
+Dialogic 很可能已经支持你特定的存档与读档需求。

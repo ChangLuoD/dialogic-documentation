@@ -1,132 +1,132 @@
 <div class="header-banner tropical">
-     <div class="header-label tropical">Text Effects</div>
+     <div class="header-label tropical">文本特效</div>
 </div>
 
-*Text effects are tags that define a position in text and an action that happens, when that position is reached during the reveal of the text. Many text effects take an additional argument. They are useful to change the behaviour of the text revealing (e.g. speed, pauses, skipping, etc.) or to react to specific moments in the text (signal, changing the speakers portrait or sound mood).*
+*文本特效是一种标签，它定义了文本中的一个位置，以及在文本逐字显示到该位置时发生的操作。许多文本特效需要额外的参数。它们可用于改变文本显示的行为（例如速度、暂停、跳过等），或对文本中的特定时刻做出反应（发出信号、切换说话者的立绘或音效情绪）。*
 
-## 📜 Content
+## 📜 目录
 [toc]
 
-## Splitting Events
+## 拆分事件
 
-### Effect: New Event
+### 特效：新事件
 
-**Syntax:** `[n]` / `[n+]`
+**语法：** `[n]` / `[n+]`
 
-Visually starts a new event, requiring manual advancement by the user or by the Auto-Advance system.
+在视觉上开启一个新事件，需要用户手动前进，或由自动前进系统推进。
 
-The variant with the `+` will append the following text to the previous without clearing the text box.
+带 `+` 的变体会把后续文本追加到前一段之后，而不清空文本框。
 
-### Effect: Input
+### 特效：输入
 
-**Syntax:** `[input]` 
+**语法：** `[input]` 
 
-Will simply await any input when reached. As opposed to [n+], it is not breaking the text up into multiple sections and can thus be skipped. 
-
----
-
-## Speeds & Pauses
-
-Text speed is a complicated topic, as it can be used in numerous ways. Dialogic has
-
-- a **letter speed** (specifies the time to wait on each symbol)
-
-- a **speed multiplier** (modifies the letter and pause speed, resets every event)
-
-- a **text speed setting** (also modifies letter and pause speed)
+到达该位置时只是等待任意输入。与 [n+] 不同，它不会把文本拆分成多个部分，因此可以被跳过。 
 
 ---
 
-### Letter Speed
+## 速度与暂停
 
-The letter speed defines the time (in seconds) that each letter takes to be revealed. The default can be changed in the text settings. It can be changed temporarily (it will reset before the next event) with these effects:
+文本速度是个复杂的话题，因为它可以有多种用法。Dialogic 提供了
 
-#### Effect: Setting Letter Speed
+- 一个**字母速度**（指定每个字符需要等待的时间）
 
-**Syntax:** `[lspeed=x]` / `[lspeed]` / `[lspeed=x!]` 
+- 一个**速度倍率**（修改字母速度与暂停速度，每个事件都会重置）
 
-Sets the letter speed to x in seconds or resets to the default if no x is given. By default the speed is multiplied with both the temporary speed multiplier and the text speed setting. If you put a `!` behind the time (e.g. `[lspeed=0.1!]`) then this is not the case.
-
----
-
-### Temporary Speed Multiplier
-
-The speed multiplier is 1 by default, so it has no effect. It can be changed temporarily (it will reset before the next event) with these effects:
-
-#### Speed Multiplier Effect
-
-**Syntax:** `[speed=x]` / `[speed]`
-
-Sets the temporary speed multiplier to x or 1 if nothing is given. As this will multiply the pause length and letter speed, a bigger number means a slower reveal, a smaller number means a faster reveal and 0 means an instant reveal.
+- 一个**文本速度设置**（同样修改字母速度与暂停速度）
 
 ---
 
-### Pauses Effect
+### 字母速度
 
-**Syntax:** `[pause=x]` / `[pause=x!]` 
+字母速度定义每个字母显示出来所需的时间（以秒为单位）。默认值可以在文本设置中更改。你可以通过以下特效临时更改它（它会在下一个事件之前重置）：
 
-Pauses the reveal for x seconds (e.g., `[pause=0.2]`). 
+#### 特效：设置字母速度
 
-By default this duration will be multiplied with the temporary speed multipler and the text speed setting multiplier. If you put a `!` behind the time (e.g. `[pause=0.2!]`) then this is not the case. 
+**语法：** `[lspeed=x]` / `[lspeed]` / `[lspeed=x!]` 
 
-*Related to this are **Auto-Pauses**, which can be configured in the text settings to insert pause effects after certain symbols. This can be used to easily alter the flow of punctuation.*
-
----
-
-### Multiplier "Text Speed" (Dialogic Setting)
-
-This is a `Dialogic Setting` so something that can be changed in-game via the Settings subsystem and is stored automatically and globally.
-
-It defaults to 1 (no effect) and can be used to add a reveal speed setting to your games option menu.
-
-You can access it via the Settings subsystem `Dialogic.Settings.text_speed = 0.5`. This should enable you to implement a speed slider in your settings
+把字母速度设为 x 秒；如果未给出 x，则重置为默认值。默认情况下，该速度会同时乘以临时速度倍率和文本速度设置。如果在时间后面加上 `!`（例如 `[lspeed=0.1!]`），则不会进行这种乘法。
 
 ---
 
-## Signal Effect
+### 临时速度倍率
 
-**Syntax:** `[signal=arg]`
+速度倍率默认为 1，因此没有任何效果。你可以通过以下特效临时更改它（它会在下一个事件之前重置）：
 
-Emits the `Dialogic.text_signal` signal with the given argument. Useful if you want something to happen at a specific moment during the text. Learn more about the signal: [Dialogic Signals](./dialogic-signals.md)
+#### 速度倍率特效
 
----
+**语法：** `[speed=x]` / `[speed]`
 
-## Portrait & Type Sound Mood Effects
-
-### Portrait Effect
-
-**Syntax:** `[portrait=name]`
-
-Changes the portrait of the speaker to the portrait with the given name.
-
-### Type Sound Mood Effect
-
-**Syntax:** `[mood=name]`
-
-Changes the typing mood to the one with the given name.
-
-### Extra Data Effect
-
-**Syntax:** `[extra_data=value]`
-
-Changes the extra data of the speaker to the given value.
+把临时速度倍率设为 x；如果未给出任何值则为 1。由于它会乘到暂停时长和字母速度上，数值越大显示越慢，数值越小显示越快，0 表示瞬间显示。
 
 ---
 
-## Auto-Advance Effect
+### 暂停特效
 
-**Syntax:** `[aa]` / `[aa=x]` / `[aa=x?]`
+**语法：** `[pause=x]` / `[pause=x!]` 
 
-Enables the Auto-Advance for the *current* text event. 
+让显示暂停 x 秒（例如 `[pause=0.2]`）。 
 
-A time x (in seconds) can be given to set the Auto-Advance time. This time is absolute and overwrites the more relative "per word" or "per letter" settings. 
+默认情况下，该时长会乘以临时速度倍率和文本速度设置倍率。如果在时间后面加上 `!`（例如 `[pause=0.2!]`），则不会进行这种乘法。 
 
-If the time is given with a `?` then it will *only* set the time and *not* enable Auto-Advance. This is useful if the player can freely enable/disable Auto-Advance and you just want to define a different Auto-Advance time for this event, but not change it's state. 
+*与此相关的是**自动暂停**，可以在文本设置中配置它，在特定符号之后插入暂停特效。这样可以方便地调整标点的节奏。*
 
 ---
 
-## No Skip Effect
+### 倍率「文本速度」（Dialogic 设置）
 
-**Syntax:** `[ns]` / `[ns=x]`
+这是一个 `Dialogic Setting`，因此可以在游戏运行时通过设置子系统更改，并且会自动全局保存。
 
-This effect temporarily (for this event) disables text skipping *and* manual advance and enables Auto-Advance with the given time x (in seconds).
+它默认为 1（无效果），可用来在游戏的选项菜单中添加显示速度设置。
+
+你可以通过设置子系统访问它：`Dialogic.Settings.text_speed = 0.5`。这样你就能在设置中实现一个速度滑块。
+
+---
+
+## 信号特效
+
+**语法：** `[signal=arg]`
+
+以给定参数发出 `Dialogic.text_signal` 信号。如果你希望在文本中的某个特定时刻触发某些事情，这会很有用。了解更多关于该信号的信息：[Dialogic 信号](./dialogic-signals.md)
+
+---
+
+## 立绘与打字音效情绪特效
+
+### 立绘特效
+
+**语法：** `[portrait=name]`
+
+把说话者的立绘切换为具有给定名称的立绘。
+
+### 打字音效情绪特效
+
+**语法：** `[mood=name]`
+
+把打字音效的情绪切换为具有给定名称的情绪。
+
+### 额外数据特效
+
+**语法：** `[extra_data=value]`
+
+把说话者的额外数据改为给定值。
+
+---
+
+## 自动前进特效
+
+**语法：** `[aa]` / `[aa=x]` / `[aa=x?]`
+
+为*当前*文本事件启用自动前进。 
+
+可以给出时间 x（以秒为单位）来设置自动前进时间。该时间是绝对时间，会覆盖更相对的「每词」或「每字母」设置。 
+
+如果时间后面带 `?`，则它*只*设置时间，而*不会*启用自动前进。当玩家可以自由启用/禁用自动前进，而你只想为这个事件定义不同的自动前进时间、但不改变其开关状态时，这会很有用。 
+
+---
+
+## 禁止跳过特效
+
+**语法：** `[ns]` / `[ns=x]`
+
+该特效会临时（仅对这个事件）禁用文本跳过*和*手动前进，并以给定的时间 x（秒）启用自动前进。

@@ -1,61 +1,61 @@
 <div class="header-banner purple">
-     <div class="header-label ocean">Custom Choice Button Extra Data</div>
+     <div class="header-label ocean">自定义选项按钮的额外数据</div>
 </div>
 
-*Sometimes you need your choices buttons to do a little more then reacting to a click and showing a text. Dialogic allows you to easily communicate between the choice event and the choice button node via an "Extra Data" dictionary. Yay.*
+*有时候你需要选项按钮做的不只是响应点击和显示文字。Dialogic 允许你通过一个「额外数据」字典，在选项事件与选项按钮节点之间轻松通信。太好了。*
 
-## 📜 Content
+## 📜 目录
 [toc]
 
 
-## What's this about?
-Dialogics default choice button can do three things:
-- Show text
-- Hide/Disable themselves based on a condition
-- Optionally show a different text when the condition is wrong
+## 这是做什么的？
+Dialogic 默认的选项按钮可以做三件事：
+- 显示文字
+- 根据条件隐藏/禁用自身
+- 可选地在条件不成立时显示另一段文字
 
-Often you'll want a bit more, for example
-- an icon
-- a color
-- a fancy animation
+通常你会想要更多，例如
+- 一个图标
+- 一种颜色
+- 一段花哨的动画
 
-Or something else. 
+或者别的什么。
 
-To do this, you can create a custom choice button script that reacts to extra data provided on the choice event. 
-This means you will have to customize your choice layer if you haven't already.
+要做到这一点，你可以创建一个自定义选项按钮脚本，让它响应选项事件上提供的额外数据。
+这意味着如果你还没有自定义选项图层，就得先做这一步。
 
-## Implementation Example
-Here is an example script that you could apply to all your choice buttons.
+## 实现示例
+下面是一个可以应用到所有选项按钮上的示例脚本。
 ```gdscript
 extends DialogicNode_ChoiceButton
 
 func _load_info(info:Dictionary) -> void:
-    # Load text and visibility
+    # 加载文字与可见性
     super(info)
     
-    # Example of changing the modulation based on a string (hex-code or named color)
+    # 示例：根据字符串（十六进制颜色码或颜色名）改变调制颜色
     modulate = Color(info.get("color", "WHITE"))
 
-    # Example of changing the icon based on a path.
+    # 示例：根据路径改变图标
     if ResourceLoader.exists(info.get("icon", "")):
         icon = load(info.get("icon"))
     else:
         icon = null
     
-    # React to all possible extra data values you might want to use 
-    # (e.g. sounds, tooltips, animations, idk.)
+    # 响应你可能想用到的所有额外数据
+    # （例如音效、工具提示、动画，等等。）
 ```
 
-For a choice button with the script above, a Choice Event could look like this: 
+对于使用上面脚本的选项按钮，一个选项事件可以长这样：
 
 ![](media/custom_choices/custom_choice_example.png)
 
-Which is equivalent to this in the text editor:
+它在文本编辑器中等同于下面这样：
 ```dtl
-- A wonderful choice | [color="Blue" icon="res://icon.svg"]
+- 一个绝妙的选项 | [color="Blue" icon="res://icon.svg"]
 ```
 
-## Details
-You choice button script should extend [DialogicNode_ChoiceButton](/classes/class_dialogicnode_choicebutton.md).
+## 细节
+你的选项按钮脚本应当继承 [DialogicNode_ChoiceButton](/classes/class_dialogicnode_choicebutton.md)。
 
-If you overwrite `_load_info()` but still want Dialogic's basic text and condition logic to apply, call `super(info)` in it. 
+如果你重写了 `_load_info()`，但仍想沿用 Dialogic 基本的文字与条件逻辑，就在其中调用 `super(info)`。

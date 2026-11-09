@@ -1,101 +1,101 @@
 <div class="header-banner ocean">
-     <div class="header-label ocean">Character & Portraits</div>
+     <div class="header-label ocean">角色与立绘</div>
 </div>
 
-*The character editor allows you to edit character resources (`.dch`). It has four sections.*
+*角色编辑器用于编辑角色资源（`.dch`）。它包含四个部分。*
 
 ![](media/character_editor.png)
 
-## 📜 Content
+## 📜 目录
 
 [toc]
 
-## 1. Main Settings
+## 1. 主设置
 
-The character resource has a number of settings:
+角色资源有若干设置项：
 
-#### 1.1 General
+#### 1.1 通用
 
-- **Display Name:**
-  *This string will be shown on the name label. Notably this can be a variable if you want the display name to change during the game. Just put the variable name in curly brackets.*
+- **显示名称：**
+  *该字符串会显示在名称标签上。值得注意的是，如果你希望显示名称在游戏过程中发生变化，这里也可以填一个变量。只需把变量名放进大括号中即可。*
 
-- **Nicknames:**
-  *These strings (comma separated) will also be considered for the `Autocolor names` option (in the text settings).*
+- **昵称：**
+  *这些字符串（以逗号分隔）也会被 `Autocolor names` 选项（在文本设置中）考虑在内。*
 
-- **Description:**
-  *Does nothing. Could help you remember what this character was for.*
+- **描述：**
+  *没有任何作用。可以帮你记住这个角色是做什么用的。*
 
-#### 1.2 Portraits
+#### 1.2 立绘
 
-- **Default Portrait:**
-  *The portrait that will be used if none is specified (for Character event `Join` mode or text effect [portrait]). This does not affect Text events without a portrait specified! In that case, there will be no change.*
+- **默认立绘：**
+  *在未指定立绘时使用的立绘（用于角色事件的 `Join` 模式或文本特效 [portrait]）。这不会影响没有指定立绘的文本事件！在这种情况下，不会发生任何变化。*
 
-- **Portrait Settings:**
-  *Scale, offset and mirror settings that will be applied to all portraits. Note that scale, offset and mirror can also be set individually per portrait.*
+- **立绘设置：**
+  *将应用于所有立绘的缩放、偏移和镜像设置。注意，缩放、偏移和镜像也可以为每个立绘单独设置。*
 
-#### 1.3 Style
+#### 1.3 样式
 
-- **Style:**
-  *If you set a custom style, it will be used whenever this character is speaking. As this can result in rapid style changes, we suggest using the same layout for variations like this.*
+- **样式：**
+  *如果你设置了自定义样式，那么该角色说话时就会使用它。由于这可能导致样式频繁切换，我们建议为这类变体使用相同的布局。*
 
-#### 1.4 Typing Sounds
+#### 1.4 打字音效
 
-- **Sound Moods:**
-  *A sound mood is a folder of sounds, and a random one is played for each letter these characters say. You can have different sound moods for different portraits.*
+- **音效情绪（Sound Moods）：**
+  *音效情绪是一个存放音效的文件夹，角色说出的每个字母都会随机播放其中一个音效。你可以为不同立绘设置不同的音效情绪。*
 
-#### 1.5 Text Prefix & Suffix
+#### 1.5 文本前缀与后缀
 
-Applying specific text segments before and after a spoken text by the character allows you to add quotation marks or rich tags.
-If you issue the player [multiple times to advance within a single Text Event](text-effects.md#effect-new-event), each message part will appear with Prefix and Suffix.
+在角色说出的文本前后附加特定的文本片段，可以让你添加引号或富文本标签。
+如果你[在单个文本事件中多次要求玩家推进](text-effects.md#特效新事件)，那么每段消息都会带上前缀和后缀。
 
-- **Prefix:**
-  *Text that appears before character text via the Text Event.*
+- **前缀：**
+  *通过文本事件显示在角色文本之前的文本。*
 
-- **Suffix:**
-  *Text that appears after character text via the Text Event.*
+- **后缀：**
+  *通过文本事件显示在角色文本之后的文本。*
 
 ```admonish info
-Custom tags do not make rich tags work automatically.
+自定义标签并不会自动让富文本标签生效。
 
-Your Dialogic Style is responsible to support Rich Tags in the Text Box.
-By default, Dialogic's own Style Layers support Rich Tags in the Text Box.
+能否在文本框中支持富文本标签，取决于你的 Dialogic 样式。
+默认情况下，Dialogic 自带的样式图层支持在文本框中使用富文本标签。
 ```
 ---
 
-## 2. Portrait list
+## 2. 立绘列表
 
-The portrait list allows you to add portraits to your character. A portrait is a scene that will be instanced and moved around by Dialogic when you use the Character event.
+立绘列表允许你为角色添加立绘。立绘是一个场景，当你使用角色事件时，Dialogic 会实例化它并移动它。
 
-A character can have unlimited portraits, but each has to have a unique name.
+一个角色可以有无限个立绘，但每个立绘都必须有唯一的名称。
 
-1. Add a new portrait
-2. Add a new portrait group
-3. Import a folder of images as portraits
-4. Rename a portrait or group *(or double-click or use F2)*
-5. Duplicate a portrait
-6. Delete a portrait or group *(or Delete key)*
+1. 添加新立绘
+2. 添加新立绘分组
+3. 将一整个文件夹的图片导入为立绘
+4. 重命名立绘或分组 *（或双击，或按 F2）*
+5. 复制立绘
+6. 删除立绘或分组 *（或按 Delete 键）*
 
 ![image](/media/portrait_list_buttons.png)
 
-*Note: Groups are not actually saved. This means empty groups will get lost when leaving the editor.*
+*注意：分组实际上不会被保存。这意味着空分组在离开编辑器后会丢失。*
 
 ---
 
-## 3. Preview
+## 3. 预览
 
-The preview shows the selected portrait (or nothing, if you don't have a portrait). You can switch between a `Full view` that will size the character so it's fully visible and a `Real size` view that shows the character at full scale.
+预览会显示选中的立绘（如果你没有立绘，则不显示任何内容）。你可以在让角色缩放到完整可见的 `Full view` 与以原始比例显示角色的 `Real size` 之间切换。
 
 ---
 
-## 4. Portrait settings
+## 4. 立绘设置
 
-The portrait section consists of multiple sections, each containing settings for the currently selected portrait.
+立绘部分由多个小节组成，每个小节都包含针对当前选中立绘的设置。
 
-The most important setting is the scene a portrait uses. The default scene allows you to select an image.
-However, you can also use the [Layered Portrait](layered-portraits.md) scene.
+最重要的设置是立绘所使用的场景。默认场景允许你选择一张图片。
+不过，你也可以使用[分层立绘](layered-portraits.md)场景。
 
-Learn more about how to create a custom portrait here: [Custom portraits](custom-portraits.md)
+在此了解如何创建自定义立绘：[自定义立绘](custom-portraits.md)
 
-For any portrait, you can set a scale, offset and mirror setting. These are additive to the main scale, offset and mirror. You can choose to ignore the main character scale to work around this.
+对任何立绘，你都可以设置缩放、偏移和镜像。这些设置会与主体的缩放、偏移和镜像叠加。你可以选择忽略角色主体的缩放来绕开这一点。
 
-When you use a custom portrait, you can override its exported variables here.
+当你使用自定义立绘时，可以在这里覆盖它导出的变量。

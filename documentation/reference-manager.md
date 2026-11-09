@@ -1,62 +1,62 @@
 <div class="header-banner purple">
-     <div class="header-label purple">Reference Manager</div>
+     <div class="header-label purple">引用管理器</div>
 </div>
 
-*The reference manager allows fixing broken references and renaming unique resource identifiers.*
+*引用管理器可以修复失效引用，并重命名资源的唯一标识符。*
 
-## 📜 Content
+## 📜 目录
 [toc]
 
-## 1. What kind of references are we talking about?
+## 1. 这里说的引用是什么？
 
-Dialogic timelines are saved in a text-format that often favors being readable over being specific: You do not have to specify the exact character resource every time you reference a character. 
+Dialogic 时间线以文本格式保存，这种格式往往更看重可读性，而不是精确性：你在引用某个角色时，不必每次都指定确切的角色资源。
 
-To do this, dialogic assigns each of its resources (*timelines and characters*) a `unique identifier` string. This string is initially based on the file name but can be changed to be whatever; the only important thing is: no two resources (of the same type) can have the same identifier.
+为此，Dialogic 会为它的每个资源（*时间线和角色*）分配一个 `unique identifier`（唯一标识符）字符串。这个字符串最初基于文件名，但可以改成任意内容；唯一重要的是：两个（同类型的）资源不能拥有相同的标识符。
 
-There are some other name based references in dialogic, notably *portraits* and *variables*. 
+Dialogic 中还有一些其他基于名称的引用，尤其是*立绘*和*变量*。
 
-Dialogic provides tools to edit unique identifiers and also easily fix any `broken references` if you renamed something after having already used it in a timeline. These tools live in the Reference Manager which can be accessed via the Link button in the toolbar.
+Dialogic 提供了编辑唯一标识符的工具，也能在你重命名了某个东西、而它早已在时间线中被使用后，轻松修复任何 `broken references`（失效引用）。这些工具位于引用管理器中，可以通过工具栏上的链接按钮打开。
 
 ---
 
-## 2. Broken references
+## 2. 失效引用
 
-The first tab allows you to fix references after you renamed something. 
+第一个标签页让你在重命名之后修复引用。
 
-Dialogic will sometimes send you here. In those cases it has usually already added some renames that you should check for. 
+Dialogic 有时会把你引导到这里。这种情况下，它通常已经添加了一些重命名条目，你应该逐个检查。
 
-Simply click `Check Selected` which will scan all timelines for the references in the list above. Check if the results look like they contain the thing you want to actually replace. If not just uncheck them. Then click `Replace`.
+只需点击 `Check Selected`，它就会扫描所有时间线，查找上方列表中的引用。确认结果中是否包含你真正想替换的内容。如果不是，就取消勾选。然后点击 `Replace`。
 
 > [!WARNING]
-> This performs a destructive operation on all affected timelines. It can not be easily undone if it goes wrong.
-> It usually works fine, but if you use custom regexes you should be pretty careful. 
-> If you use version control, this would be the perfect moment to commit! 
+> 这会对所有受影响的时间线执行破坏性操作。一旦出错，很难轻松撤销。
+> 它通常能正常工作，但如果你使用自定义正则表达式，就应当格外小心。
+> 如果你使用版本控制，这正是提交的绝佳时机！
 
 
-The tool will automatically remove any resolved (or irrelevant) renames from the list when you close the window.
+当你关闭窗口时，工具会自动从列表中移除已解决（或无关）的重命名条目。
 
-#### 2.1 Custom replacements (Advanced)
+#### 2.1 自定义替换（高级）
 
-This tool can also be used to manually replace something. This is useful if dialogic didn't correctly pick up on a rename or you would like to replace some other string in all timelines. 
+这个工具也可以用来手动替换某些内容。当 Dialogic 没能正确识别某次重命名，或者你想在所有时间线中替换其他字符串时，这很有用。
 
-This can be done by clicking the `Plus button`. 
+这可以通过点击 `Plus button` 完成。
 
-If you select `Pure Text` you can enter a custom term or regex. The regex can contain a `(?<replace>something)` group if you would like to not replace the whole result.
+如果你选择 `Pure Text`，就可以输入自定义的词条或正则表达式。如果你不想替换整个匹配结果，正则表达式可以包含一个 `(?<replace>something)` 分组。
 
-Any of the other options (`Variable`, `Portrait`, `Character`, `Timeline`) will use a custom regex specialized for those types.
+其他任何选项（`Variable`、`Portrait`、`Character`、`Timeline`）都会使用针对这些类型专门定制的正则表达式。
 
-You can also limit a search to only lines related to a specific character (useful for portraits). 
+你还可以把搜索范围限制在只与特定角色相关的行（对立绘很有用）。
 
-Lastly click `Add`. An entry will be added to the list. You can then continue like with automatically added entries. 
+最后点击 `Add`。列表中就会添加一个条目。之后你就可以像处理自动添加的条目那样继续操作。
 
 --- 
 
-## 3. Unique identifiers
+## 3. 唯一标识符
 
-The second tab allows you to change the unique identifiers for your characters and timelines.  
+第二个标签页让你修改角色和时间线的唯一标识符。  
 
-You can simply double click an identifier or use the Pen button on the left.
+你可以直接双击某个标识符，或使用左侧的钢笔按钮。
 
-No two identifiers in the same category can be the same.
+同一类别中的两个标识符不能相同。
 
-Renaming any identifier will automatically add an entry to the "Broken References" tab which you can use to check if this rename broke anything.
+重命名任何标识符都会自动在“失效引用”标签页中添加一个条目，你可以用它来检查这次重命名是否破坏了什么。

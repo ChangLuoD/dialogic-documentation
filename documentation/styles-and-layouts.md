@@ -1,85 +1,85 @@
 <div class="header-banner dawn">
-     <div class="header-label dawn">Styles & Layouts</div>
+     <div class="header-label dawn">样式与布局</div>
 </div>
 
-*This page is all about how dialogic can display timelines in your game using Styles, Layouts and Dialogic Nodes.*
+*本页介绍 Dialogic 如何使用样式、布局和 Dialogic 节点在你的游戏中显示时间线。*
 
-## 📜 Content
+## 📜 目录
 [toc]
 
-## 1. Introduction
+## 1. 简介
 
-One important aspect of Dialogic is how it allows you to display your timelines. To achieve this, there are a number of systems working together: Dialogic Nodes, Layout Scenes and Styles.
+Dialogic 的一个重要方面是它如何让你显示时间线。为实现这一点，有多个系统协同工作：Dialogic 节点、布局场景和样式。
 
-**Dialogic Nodes** are nodes that can be placed in any scene. These nodes will be activated by dialogic and do wildly different things, from displaying text, labels or choices to playing sounds or defining a clickable area.
+**Dialogic 节点**是可以放置在任何场景中的节点。这些节点会被 Dialogic 激活，并做各种截然不同的事情，从显示文本、标签或选项，到播放音效或定义一个可点击区域。
 
-**Layout Scenes** are scenes that contain both Dialogic Nodes, other Godot Control nodes, and custom scripts and provide a standalone UI-part. For example, there is a `VisualNovel Textbox Scene`, a `Glossary Popup Scene` or a `Centered Choices Scene`.
+**布局场景**是同时包含 Dialogic 节点、其他 Godot Control 节点以及自定义脚本的场景，提供一个独立的 UI 部分。例如，有 `VisualNovel Textbox Scene`、`Glossary Popup Scene` 或 `Centered Choices Scene`。
 
-**Dialogic Styles** are a resource that holds a combination of layout scenes and allows for setting them. This is the easiest way to modify the look of Dialogic, as styles can be edited in Dialogic's Style Editor.
+**Dialogic 样式**是一种资源，它保存一组布局场景的组合，并允许对它们进行设置。这是修改 Dialogic 外观最简单的方式，因为样式可以在 Dialogic 的样式编辑器中编辑。
 
-## 2. Working with styles
+## 2. 使用样式
 
-You can find a video walkthrough of Dialogic styles here: [Dialogic 2 - New Style System - YouTube](https://www.youtube.com/watch?v=TLnzSzqBwu4)
+你可以在这里找到 Dialogic 样式的视频讲解：[Dialogic 2 - New Style System - YouTube](https://www.youtube.com/watch?v=TLnzSzqBwu4)
 
-A style is made up of:
+一个样式由以下部分组成：
 
-- One `Base` layout scene (of type `DialogicLayoutBase`) and settings for that scene.
+- 一个 `Base` 布局场景（类型为 `DialogicLayoutBase`），以及该场景的设置。
 
-- A list of `Layer` layout scenes (of type `DialogicLayoutLayer`) and settings for each layer.
+- 一个 `Layer` 布局场景列表（类型为 `DialogicLayoutLayer`），以及每个图层的设置。
 
-In the style editor, you can
+在样式编辑器中，你可以
 
-- Add new styles (either starting empty or from a premade style)
+- 添加新样式（从空白开始或基于预设样式）
 
-- Rename Styles
+- 重命名样式
 
-Add, replace, or remove layers (both premade scenes and custom scenes)
+添加、替换或移除图层（预设场景和自定义场景都可以）
 
-- Set all kinds of settings on any of the scenes that are part of that style
+- 为属于该样式的任意场景设置各种选项
 
-- Make one of the premade layers or a whole style custom
+- 将某个预设图层或整个样式设为自定义
 
-- Make an inherited style from another style (inherits scenes and default settings)
+- 基于另一个样式创建继承样式（继承其场景和默认设置）
 
-- Change the default style
+- 更改默认样式
 
-### 2.1 Using styles in game
+### 2.1 在游戏中使用样式
 
-You can switch between different styles with the `Change Style` event, by calling `Dialogic.Styles.load_style()` before calling `Dialogic.start()`, or by assigning a style to a character.
+你可以通过 `Change Style` 事件、在调用 `Dialogic.start()` 之前调用 `Dialogic.Styles.load_style()`，或者给角色指定一个样式，来切换不同的样式。
 
-## 3. Custom Styles & Layouts
+## 3. 自定义样式与布局
 
-You can customize all parts of this "Displaying" part of Dialogic.
+你可以自定义 Dialogic 这个“显示”部分的所有环节。
 
-### 3.1 Custom styles
+### 3.1 自定义样式
 
-The simplest is creating a custom style by combining different layers and changing their settings.
+最简单的方式是通过组合不同的图层并修改它们的设置来创建自定义样式。
 
-### 3.2 Custom Layout Scenes
+### 3.2 自定义布局场景
 
-The next step would be to customize part of your layout (one of the scenes) beyond what's possible with the provided settings.
+下一步是把你布局的一部分（其中一个场景）自定义到超出所提供设置能达到的程度。
 
-An easy way to do this is to use the "Make Custom" button above the layer list and select "Current Layer". 
-This will create a copy of that layer's scene, which you can edit in Godot. This is what you would do if you generally like, e.g., the text box, but would like to change something about it that's impossible with just the settings.
+一个简单的做法是使用图层列表上方的“Make Custom”按钮，并选择“Current Layer”。
+这会创建该图层场景的一份副本，你可以在 Godot 中编辑它。如果你总体上喜欢比如这个文本框，但想改动一些仅靠设置无法改动的东西，这就是你要做的。
 
 > [!TIP]
-> When editing a layout that's been made custom, be careful which sub-resources (e.g. scripts, fonts, images, etc.) might still be inside the addons/dialogic folder.
-> If you modify these the changes might be lost when updating dialogic.
-> I recommend making any sub-resource "unique" before modifying it.
-> Some, like the scenes root-script however are usually made custom automatically when using "Make Custom".
+> 在编辑已经设为自定义的布局时，要注意哪些子资源（例如脚本、字体、图片等）可能仍在 addons/dialogic 文件夹中。
+> 如果你修改了它们，更新 Dialogic 时这些改动可能会丢失。
+> 我建议在修改之前先把任何子资源设为“unique”。
+> 不过，有些资源（例如场景的根脚本）在使用“Make Custom”时通常会自动设为自定义。
 
-Alternatively, you can start a custom layout scene from scratch.
+或者，你也可以从零开始创建一个自定义布局场景。
 
-- Your scene's root node has to have a script that extends from either `DialogicLayoutBase` or `DialogicLayoutLayer` depending on your use-case.
+- 你的场景根节点必须挂载一个脚本，该脚本根据你的用途继承 `DialogicLayoutBase` 或 `DialogicLayoutLayer`。
 
-- In your scene root script, you can export variables, which will appear as settings in Dialogic's style editor. Grouping them with @export_group and @export_subgroup makes it even nicer. Note that not all types are supported here.
+- 在场景根脚本中，你可以导出变量，它们会作为设置项出现在 Dialogic 的样式编辑器中。用 @export_group 和 @export_subgroup 对它们分组会更美观。注意这里并非所有类型都受支持。
 
-- If you want to utilize Dialogic's style system, then you should apply any @exported settings in a method called `_apply_export_overrides()` which is called whenever the style changes.
+- 如果你想利用 Dialogic 的样式系统，那么你应该在一个名为 `_apply_export_overrides()` 的方法中应用所有 @export 出来的设置，该方法会在样式变化时被调用。
 
-You can add your custom scene effortlessly by either using `Add Layer` or `Replace Layer` above the layer list.
+你可以通过图层列表上方的 `Add Layer` 或 `Replace Layer` 轻松添加你的自定义场景。
 
-### 3.3 Custom nodes
+### 3.3 自定义节点
 
-While Dialogic's modules usually expect the nodes that display them to be made in a certain way, that doesn't prevent you from actually customizing the nodes themselves. Each dialogic node is just a normal control node with a script attached to it. Usually, dialogic nodes interact with dialogic subsystems through a group they add themselves to.
+虽然 Dialogic 的模块通常期望显示它们的节点以某种特定方式构建，但这并不妨碍你真正去自定义这些节点本身。每个 Dialogic 节点只是一个普通的 control 节点，挂载了一个脚本。通常，Dialogic 节点通过把自己加入某个分组来与 Dialogic 子系统交互。
 
-Note that in most cases, reacting to some Dialogic signals (or signals of existing dialogic nodes) can be way easier than creating a custom version of a dialogic node.
+注意，在大多数情况下，响应某些 Dialogic 信号（或现有 Dialogic 节点的信号）要比创建一个 Dialogic 节点的自定义版本容易得多。

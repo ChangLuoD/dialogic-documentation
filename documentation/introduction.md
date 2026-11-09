@@ -1,94 +1,94 @@
 <div class="header-banner dawn">
-     <div class="header-label dawn">Introduction to Dialogic 2</div>
+     <div class="header-label dawn">Dialogic 2 简介</div>
 </div>
 
 > [!IMPORTANT]
-> This documentation is for Dialogic 2.
-> Dialogic 2 is still in-development and marked as Alpha, there may be workflow breakage!
+> 本文档面向 Dialogic 2。
+> Dialogic 2 仍处于开发中，并被标记为 Alpha，工作流程可能会出现破坏性变动！
 
 
-## 📜 Content
+## 📜 目录
 [toc]
 
-## What is Dialogic 2?
+## 什么是 Dialogic 2？
 
-The Dialogic plugin allows you to easily create **in-game dialogs** or fully fledged **Visual Novels** with Godot.
+Dialogic 插件让你可以借助 Godot 轻松创建**游戏内对话**，或完整的**视觉小说**。
 
-Let's get an overview of what Dialogic 2 can do for you!
+我们先来总览一下 Dialogic 2 能为你做些什么！
 
-### 1. Timelines!
+### 1. 时间线！
 
-Timelines represent your Dialogs. They are a list of events (e.g. text, conditions, animations, signals, etc.) and control the flow of your story. You can edit them in a writer-friendly **Visual Editor**, our very efficient **Text Editor** or any text editor of your choice.
+时间线代表你的对话。它是一系列事件（例如文本、条件、动画、信号等）的列表，并控制你故事的流程。你可以在对写作者友好的**可视化编辑器**、我们高效易用的**文本编辑器**，或你喜欢的任意文本编辑器中编辑它们。
 
-The **Visual Editor** has each event as a movable block with easy to use fields:
-![Dialogic 2: Timeline in Visual Mode](media/introduction/visual_timeline.png)
+**可视化编辑器**把每个事件呈现为一个可移动的块，并带有易于使用的字段：
+![Dialogic 2：可视化模式下的时间线](media/introduction/visual_timeline.png)
 
-The **Text Editor** allows you to write events in pure text format. It provides syntax highlighting and auto-completion making writing timelines super efficient. You can use any text editor, though. Here is the same timeline in the text format:
+**文本编辑器**允许你以纯文本格式编写事件。它提供语法高亮与自动补全，使编写时间线极为高效。不过，你也可以使用任意文本编辑器。下面是用文本格式表示的同一个时间线：
 
 ```dtl
 join Juliet left
-Juliet: Oh Romeo, what's your favorite game type?
+Juliet: 哦 Romeo，你最喜欢哪种游戏类型？
 join Romeo right
-Romeo: Oh Juliet, it's simple...
-- Visual Novels
+Romeo: 哦 Juliet，这很简单……
+- 视觉小说
 	jump VNs
-- JRPGs
+- JRPG
 	jump other_timeline/
 ```
 
-No strings attached; you can mix and match as you please!
+没有任何束缚；你可以随心所欲地混用它们！
 
-### 2. Events
+### 2. 事件
 
-Each timeline contains events, and Dialogic equips you with many built-in ones to get your story started today! And when you reach their limit, you can easily create more.
+每条时间线都包含事件，Dialogic 为你准备了许多内置事件，让你今天就能开始讲故事！而当它们不够用时，你也可以轻松创建更多。
 
-![Dialogic 2: Built-In Timeline Events](media/introduction/events.png)
+![Dialogic 2：内置时间线事件](media/introduction/events.png)
 
-### 3. Customization by design
+### 3. 源于设计的可定制性
 
-Cannot find the right Event? Need more options for your character portraits? You want to simplify how your designer can adjust the theme of your game?
+找不到合适的事件？需要为角色立绘提供更多选项？想让设计师能更简单地调整游戏主题？
 
-It's all here and ready for you. Dialogic 2 is easy to use for writers and powerful but intuitive to extend for programmers.
+这些都已就绪，等你取用。Dialogic 2 对写作者而言易于上手，对程序员而言强大而又直观，便于扩展。
 
-[Create your own specific Events](creating-extensions.md) with very little code, and your designers can instantly use them as if they were part of Dialogic.
+只需极少代码就能[创建你自己的专属事件](creating-extensions.md)，而你的设计师可以立刻像使用 Dialogic 自带功能一样使用它们。
 
-### 4. Character system and editor
+### 4. 角色系统与编辑器
 
-An entire system to create and manage your characters, with a built-in editor inside Dialogic.
-No need to program anything; just create your characters and use them in your timelines.
+一整套用于创建和管理角色的系统，Dialogic 内置了对应的编辑器。
+无需编写任何程序；只要创建角色，就能在时间线中使用它们。
 
-### There is more!
+### 还有更多！
 
-We are just scratching the surface of what's possible.\
-Here is a small list of other things you can do:
+我们才刚刚触及可能性的皮毛。\
+以下是你还可以做的其他一些事情的简短列表：
 
-- [Create events and timelines in code!](creating-timelines-in-code)
+- [在代码中创建事件与时间线！](creating-timelines-in-code)
 
-- Use built-in "text actions", for instance `[speed]`, `[pause]`, `[signal]`, `[portrait]`.
+- 使用内置的「文本操作」，例如 `[speed]`、`[pause]`、`[signal]`、`[portrait]`。
 
-- [Easy-to-use variables in your timelines!](variables.md)
+- [在时间线中轻松使用变量！](variables.md)
 
-- Create a glossary for words and let your players hover over them to discover their definition.
+- 为词语创建术语表，让玩家将鼠标悬停其上即可查看其定义。
 
-- [Translate characters and timelines](translation.md) with the integrated CSV file system!
+- [借助集成的 CSV 文件系统翻译角色与时间线](translation.md)！
 
-- [Seamlessly create Custom Events](creating-extensions.md); they are all scripts! (`.gd`).
+- [无缝创建自定义事件](creating-extensions.md)；它们全都是脚本！（`.gd`）。
 
-- Access functionality from code, for instance, `"Dialogic.Portraits.change_portrait(Emilio, "happy")`, `Dialogic.Backgrounds.update_background("res://icon.png")`
+- 在代码中调用功能，例如 `"Dialogic.Portraits.change_portrait(Emilio, "happy")`、`Dialogic.Backgrounds.update_background("res://icon.png")`
 
-## How do I get started?
+## 我该如何开始？
 
-First, [let's get Dialogic up and running](getting-started)! After this step, the numerous pages on the left-side navigation bar will aid you with your dialog-driven game adventure!
+首先，[让我们把 Dialogic 安装并运行起来](getting-started)！完成这一步后，左侧导航栏上的众多页面将助你踏上对话驱动的游戏之旅！
 
-Need further details? Try the search or open an issue on the GitHub repository!
+需要更多细节？试试搜索，或在 GitHub 仓库上提交 issue！
 
 ---
 
-## Can I upgrade from Dialogic 1 to Dialogic 2?
+## 我能从 Dialogic 1 升级到 Dialogic 2 吗？
 
-There are several problems to overcome when upgrading from Dialogic 1.
+从 Dialogic 1 升级时会遇到若干问题。
 
-First, Dialogic 1 is exclusively for Godot 3.x, while Dialogic 2 requires Godot 4.5 or higher.
-Hence, your project must work in that Godot version first, it's a very different engine with plenty of changes.
+首先，Dialogic 1 仅适用于 Godot 3.x，而 Dialogic 2 需要 Godot 4.5 或更高版本。
+因此，你的项目必须首先能在该 Godot 版本下工作，这是一个改动很多的、截然不同的引擎。
 
-If you have already made a lot of progress in your game, there is no reason to upgrade. We recommend you stick to Godot 3 and Dialogic 1.
+如果你的游戏已经取得了大量进展，那没有升级的理由。我们建议你继续留在 Godot 3 与 Dialogic 1 上。

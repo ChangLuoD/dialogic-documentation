@@ -1,11 +1,11 @@
 
 <div class="header-banner purple">
-<div class="header-label purple">Class Reference Index</div>
+<div class="header-label purple">类参考索引</div>
 </div>
 
-*All event classes from the Dialogic 2 (Alpha 18) source code.*
+*Dialogic 2（Alpha 18）源代码中的全部事件类。*
 
-- [Event]()
+- [事件]()
     - [Audio](classes/class_dialogicaudioevent.md)
     - [Background](classes/class_dialogicbackgroundevent.md)
     - [Call](classes/class_dialogiccallevent.md)

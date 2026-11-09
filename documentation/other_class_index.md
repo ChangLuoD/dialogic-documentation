@@ -1,11 +1,11 @@
 
 <div class="header-banner purple">
-<div class="header-label purple">Class Reference Index</div>
+<div class="header-label purple">类参考索引</div>
 </div>
 
-*All miscellaneous classes from the Dialogic 2 (Alpha 18) source code.*
+*Dialogic 2（Alpha 18）源代码中的全部其他类。*
 
-- [Other]()
+- [其他]()
     - [BackgroundTransition](classes/class_dialogicbackgroundtransition.md)
     - [CharacterEditorMainSection](classes/class_dialogiccharactereditormainsection.md)
     - [CharacterEditorPortraitSection](classes/class_dialogiccharactereditorportraitsection.md)
@@ -30,4 +30,3 @@
     - [VisualEditorField](classes/class_dialogicvisualeditorfield.md)
     - [VisualEditorFieldNumber](classes/class_dialogicvisualeditorfieldnumber.md)
     - [VisualEditorFieldVector](classes/class_dialogicvisualeditorfieldvector.md)
-

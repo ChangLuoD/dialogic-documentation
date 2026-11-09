@@ -1,81 +1,81 @@
 <div class="header-banner ocean">
-     <div class="header-label ocean">Creating Extensions</div>
+     <div class="header-label ocean">创建扩展</div>
 </div>
 
-*Sometimes Dialogic is just not enough*.
+*有时候 Dialogic 就是不够用*。
 
-*Whether it's an event, an editor, a setting or a text effect that is missing, you can add it.
-An extension is a folder that contains all the information about these things so that Dialogic can use it.*
-*Extensions are powerful. Actually, it's just as powerful as Dialogic's built-in stuff because they are the same.*
+*无论缺的是一个事件、一个编辑器、一项设置还是一个文本特效，你都可以自己加上。
+扩展就是一个文件夹，里面装着关于这些内容的全部信息，好让 Dialogic 能够使用它们。*
+*扩展非常强大。其实它和 Dialogic 内置的东西一样强大，因为它们本来就是同一套机制。*
 
-**Extensions can add:**
-- main editors
-- events
-- subsystems
-- text effects & modifiers
-- portrait animations
-- settings
-- character settings
-- layout presets
-- Dialogic nodes.
+**扩展可以添加：**
+- 主编辑器
+- 事件
+- 子系统
+- 文本特效与文本修饰符
+- 立绘动画
+- 设置
+- 角色设置
+- 布局预设
+- Dialogic 节点。
 
-# 📜 Table of Contents
+# 📜 目录
 [toc]
 
-# 1. Getting started
+# 1. 入门
 
-The best way to create an extension is to use the extension creator in the dialogic settings (General).
+创建扩展最好的方式，是使用 Dialogic 设置（General）页面里的扩展创建器。
 
 <img src="/media/extension_creator.png" width="600"/>
 
-By clicking the `Create New Extension` button, you can set up an extension folder and a custom event script. Enter a name for the new module and select what you would like to add. Then click `Create`. This should create a folder inside your extensions folder with two scripts: `index.gd` and `event_(module name here).gd`.
+点击 `Create New Extension` 按钮，就可以创建一个扩展文件夹和一个自定义事件脚本。为新模块输入名称，并勾选你想添加的内容，然后点击 `Create`。这样会在你的扩展文件夹里生成一个文件夹，其中包含两个脚本：`index.gd` 和 `event_(module name here).gd`。
 
 > [!WARNING]
-> Existing files will be overwritten!
+> 已存在的文件会被覆盖！
 
 ---
 
-# 2. The essential part: `index.gd`
+# 2. 关键部分：`index.gd`
 
-The central piece of any extension is the `index.gd` script. It is the only thing your extension is required to have. It has to extend `DialogicIndexer` and can overwrite that class's methods to let Dialogic know what things to add.
+任何扩展的核心都是 `index.gd` 脚本。它是你的扩展唯一必须有的东西。它必须继承 `DialogicIndexer`，并且可以重写该类的方法，来告诉 Dialogic 要添加哪些内容。
 
-For example, this code registers a custom event:
+例如，下面这段代码注册了一个自定义事件：
 
 ```gdscript
 func _get_events() -> Array:
     return [this_folder.path_join('event_print.gd')]
 ```
 
-*Check out the `DialogicIndexer`'s other methods to learn how to register other things.*
+*去看看 `DialogicIndexer` 的其他方法，了解如何注册其他内容。*
 
 ---
 
-# 3. Custom events
+# 3. 自定义事件
 
-## What is an event?
+## 什么是事件？
 
-A Dialogic event is a script that defines a new class inheriting `DialogicEvent`. This script will define (a) how the event is represented in-editor, (b) how it is saved, and (c) what it does during timeline execution when the event is reached.
+Dialogic 事件是一个脚本，它定义了一个继承 `DialogicEvent` 的新类。这个脚本会定义 (a) 事件在编辑器中如何呈现，(b) 事件如何被保存，以及 (c) 当时间线执行到该事件时它做什么。
 
-Often, events work together with subsystems.
+事件常常与子系统配合工作。
 
-## Your custom event
+## 你的自定义事件
 
-The Extension Creator allows you to get a basic event script. It has already set some values for you.
+扩展创建器可以帮你得到一个基础的事件脚本。它已经为你设置好了一些值。
 
-These are the things you need to do to make your event fully functional:
+要让事件完全可用，你需要做以下几件事：
 
-### 3.1 Event settings/parameters/properties:
+### 3.1 事件设置/参数/属性：
 
-All options for your event (i.e. parameters you can "pass" to your event) should be stored in variables. Define these at the top.
+事件的所有选项（也就是你能「传给」事件的参数）都应该保存在变量里。把这些变量定义在脚本顶部。
 
 ```gdscript
 var print_text: String = ""
 var in_game: bool = false
 ```
 
-### 3.2 Execution code:
+### 3.2 执行代码：
 
-Add whatever should happen when your event is reached in the `_execute()` method:
+在 `_execute()` 方法里写上事件被执行到时应该发生什么：
 
 ```gdscript
 func _execute() -> void:
@@ -87,11 +87,11 @@ func _execute() -> void:
         finish()
 ```
 
-*The `finish()` method lets Dialogic know to continue with the next event.*
+*`finish()` 方法会告诉 Dialogic 继续执行下一个事件。*
 
-### 3.3 General settings:
+### 3.3 通用设置：
 
-In the `_init()` method, you can set some base settings of your event:
+在 `_init()` 方法里，你可以设置事件的一些基础设置：
 
 ```gdscript
 func _init() -> void:
@@ -100,16 +100,16 @@ func _init() -> void:
     event_category = "Godot"
 ```
 
-You can change the events icon by putting an `icon.svg` or `icon.png` file next to it's script, or by overwriting the `_get_icon()` method and returning a Texture2D. 
+你可以把 `icon.svg` 或 `icon.png` 文件放在事件的脚本旁边来更改事件图标，也可以重写 `_get_icon()` 方法并返回一个 Texture2D。
 
-### 3.4 Saving & Loading (i.e. parsing, representation in timeline's text editor)
+### 3.4 保存与读取（即解析、以及在时间线文本编辑器中的表示）
 
-We will cover working with shortcodes now. They are pretty much the text view of an event inside the timeline.
-The following is the shortcode for the Background event.
+接下来讲如何使用短代码。它们基本上就是一个事件在时间线中的文本形态。
+下面是一个背景事件的短代码。
 ```
 [background arg="res://Graphics/Backgrounds/sunset.png" fade="1.5"]
 ```
-To implement saving your shortcuts, return a shortcode identifier in `get_shortcode()` and fill out `get_shortcode_parameters()`:
+要实现保存你的短代码，就在 `get_shortcode()` 中返回一个短代码标识符，并填好 `get_shortcode_parameters()`：
 
 ```gdscript
 func get_shortcode() -> String:
@@ -118,26 +118,26 @@ func get_shortcode() -> String:
 
 func get_shortcode_parameters() -> Dictionary:
     return {
-        #param_name       : property_info
+        #参数名            : 属性信息
         "text"            : { "property": "print_text", "default": "" },
         "ingame"          : { "property": "in_game",    "default": false },
     }
 ```
 
-*The above event might be saved as `[print text="Some text to print" in_game="true"]`*
+*上面这个事件可能会被保存为 `[print text="Some text to print" in_game="true"]`*
 
-#### 3.4.1 Troubleshooting
+#### 3.4.1 疑难排查
 
-If your variables are not changing despite setting values in your custom event in the timeline editor, here is a little checklist:
+如果你的变量在时间线编辑器里给自定义事件设了值却依然不变，这里有一份小清单：
 
-- Remember the name of your variable; example variable name: `_audio_path`.
-- Check the `get_shortcode_parameters`:
-  - This would be correct: `"path" : { "property": "_audio_path", "default": "" },`
-  - `path` appears as text in the shortcode text view; this *can* match your variable.
-  - The `property` value must match your variable, see `_audio_path`.
-- Check `add_header_edit` including `add_body_edit` and others:
-  - The very first parameter is the `variable_name`, this must match your variable.
-  - An example:
+- 记住你的变量名；示例变量名：`_audio_path`。
+- 检查 `get_shortcode_parameters`：
+  - 这样写是对的：`"path" : { "property": "_audio_path", "default": "" },`
+  - `path` 会作为文本出现在短代码的文本视图里；它*可以*和你的变量同名。
+  - `property` 的值必须和你的变量一致，见 `_audio_path`。
+- 检查 `add_header_edit`，包括 `add_body_edit` 等：
+  - 第一个参数是 `variable_name`，它必须和你的变量一致。
+  - 一个例子：
 
 	```gdscript
 	add_header_edit(
@@ -150,21 +150,21 @@ If your variables are not changing despite setting values in your custom event i
 	)
 	```
 
-After all of these values match, the visual and text modes will both change the variables in your event, and you can access them in the `_execute`.
+当这些值全都对上之后，可视化模式和文本模式都会修改你事件里的变量，你就可以在 `_execute` 中访问它们了。
 
-#### 3.4.2 Custom Saving & Loading Syntax
+#### 3.4.2 自定义保存与读取语法
 
-You can also implement custom saving syntax by overriding the function `to_text() -> String` and `from_text(timeline_event: String)`.
-The `is_valid_event(event_name: String) -> bool` needs to be override too, if you want to quickly check if the event name is correct.
+你也可以通过重写 `to_text() -> String` 和 `from_text(timeline_event: String)` 来实现自定义的保存语法。
+如果你想快速检查事件名是否正确，还需要重写 `is_valid_event(event_name: String) -> bool`。
 
-When is custom saving and loading useful? If your shortcode has a special text syntax or is converting between values, map a word to an integer.
-This is what the text-, character-, choice-, condition-, and variable events do, so take a look at them if this is something you are interested in.
-A good example of this is the Comment event, which you can find under `addons/dialogic/modules/comment`.
+自定义保存与读取什么时候有用？当你的短代码有特殊的文本语法，或者需要在值之间做转换时——比如把一个单词映射成整数。
+文本、角色、选项、条件和变量事件就是这么做的，如果你感兴趣可以去看看它们。
+一个很好的例子是注释事件，你可以在 `addons/dialogic/modules/comment` 下找到它。
 
 
-### 3.5 Visual Editor fields:
+### 3.5 可视化编辑器字段：
 
-Your event is now fully functional, but in the visual editor, it is still blank. You will need to override the `build_event_editor()` method to define the fields/texts that will appear on the event.
+你的事件现在功能齐全了，但在可视化编辑器里它还是一片空白。你需要重写 `build_event_editor()` 方法，来定义事件上会显示哪些字段/文本。
 
 ```gdscript
 func build_event_editor() -> void:
@@ -172,24 +172,24 @@ func build_event_editor() -> void:
    add_header_edit("in_game", ValueType.BOOL, {"left_text":"(also show it in game:", "right_text":")"}, "!print_text.is_empty()")
 ```
 
-*Other methods you can use are `add_header_label()`, `add_body_edit()` and `add_body_line_break()`. Most of these allow setting a condition as the last parameter, allowing for adaptive visibility. In the example above, the second field will only be visible if any text is typed in the first.*
+*其他可用的方法有 `add_header_label()`、`add_body_edit()` 和 `add_body_line_break()`。其中大多数都允许把条件作为最后一个参数，从而实现自适应显示。在上面的例子里，只有第一个字段里输入了文字，第二个字段才会显示。*
 
-If you would like to learn more about events, I strongly suggest looking at the built-in events.
+如果你想了解更多关于事件的内容，我强烈建议你看看内置事件。
 
-#### 3.5.1 Troubleshooting
+#### 3.5.1 疑难排查
 
-If your custom event does not show up in the visual editor, but functions when written in the text editor, considering restarting Godot for changes to take hold.
+如果你的自定义事件没有出现在可视化编辑器里，但用文本编辑器写出来却能生效，可以考虑重启 Godot 让改动生效。
 
 ---
 
-# 4. Custom Subsystems
+# 4. 自定义子系统
 
-## What is a subsystem?
+## 什么是子系统？
 
-A subsystem is a script that contains useful methods for game execution. Subsystems can be accessed as `Dialogic.SubsystemName.method()` when running the game. They should contain all of your extension's code.
-For example, built-in subsystems include `Text, Portraits, Choices, Audio, etc.`. Their methods are used by the built-in events and can be used by your events as well.
+子系统是一个脚本，里面装着游戏运行时常用的方法。游戏运行时，可以通过 `Dialogic.SubsystemName.method()` 访问子系统。它们应该承载你扩展的全部代码。
+例如，内置子系统包括 `Text, Portraits, Choices, Audio, etc.`。它们的方法被内置事件使用，也可以被你的事件使用。
 
-Additionally, it's good if a subsystem manages dialogic nodes. This could be done like this:
+另外，如果由子系统来管理 dialogic 节点会更好。可以这样做：
 
 ```gdscript
 func update_my_dialogic_nodes(some_setting):
@@ -197,34 +197,34 @@ func update_my_dialogic_nodes(some_setting):
         node.update_something(some_setting)
 ```
 
-## Your custom subsystem
+## 你的自定义子系统
 
-A subsystem is a script inheriting `DialogicSubsystem`. It can override that class's methods.
-The most important methods you might want to override are `clear_game_state()` and `load_game_state()` for saving and loading, and `pause()` and `resume()` for pausing.
-If you want to save persistent data, store it in the `Dialogic.current_state_info` dictionary.
+子系统是一个继承 `DialogicSubsystem` 的脚本。它可以重写该类的方法。
+你可能最想重写的、最重要的方法是用于存档与读档的 `clear_game_state()` 和 `load_game_state()`，以及用于暂停的 `pause()` 和 `resume()`。
+如果你想保存持久化数据，就把它存进 `Dialogic.current_state_info` 字典。
 
 ---
 
-# 5. Custom animations
+# 5. 自定义动画
 
-## What is an animation?
+## 什么是动画？
 
-Portrait animations are scripts extending the `DialogicAnimation` class. The easiest way to register them is to have them in a subfolder of your module, and then add the following code to the `index.gd` file:
+立绘动画是继承 `DialogicAnimation` 类的脚本。注册它们最简单的方式，是把它们放在你模块的一个子文件夹里，然后在 `index.gd` 文件中加入以下代码：
 
 ```gdscript
 func _get_special_resources() -> Array[Dictionary]:
-    # First argument is the sub-folder, the second specifies 
-    # what kind of resource this is (needed for Dialogic)
+    # 第一个参数是子文件夹，第二个参数指定
+    # 这是什么类型的资源（Dialogic 需要用到）
 	return list_special_resources('MySubFolder', &'PortraitAnimation')
 ```
 
-## Creating an animation
+## 创建一个动画
 
-Animations are little scripts inheriting the `DialogicAnimation` class; you can take a look at the default ones (they use tweens) at `dialogic/Modules/Character/DefaultAnimations`.
+动画是继承 `DialogicAnimation` 类的小脚本；你可以去 `dialogic/Modules/Character/DefaultAnimations` 看看默认动画（它们使用补间）。
 
-Your animation script should look something like this (`bounce_in`, for example):
+你的动画脚本大致应该长这样（以 `bounce_in` 为例）：
 
-### Animation Example Bounce
+### 动画示例 Bounce
 
 ```gdscript
 extends DialogicAnimation
@@ -243,47 +243,47 @@ func animate():
 ```
 
 > [!NOTE]
-> Be aware, you have to:
-> - extend the `DialogicAnimation` class and implement the `animate()` method
-> - at some point emit the `finished_once` signal; it's called like this because animations can be repeated by Dialogic
+> 注意，你必须：
+> - 继承 `DialogicAnimation` 类并实现 `animate()` 方法
+> - 在某个时刻发出 `finished_once` 信号；之所以这么叫，是因为 Dialogic 可以重复播放动画
 
 
-*You have the following variables to work with:*
+*你可以使用以下变量：*
 
-- **node** = the node to animate. This is NOT your portrait node directly, but a Node2D that holds that portrait node
-- **time** = the amount of time the animation should take
-- **end_position** = where to end the animation
-- **orig_pos** = the position you started at
+- **node** = 要动画的节点。它不是你的立绘节点本身，而是持有那个立绘节点的一个 Node2D
+- **time** = 动画应该持续的时间
+- **end_position** = 动画结束的位置
+- **orig_pos** = 你起始的位置
 
-## Naming animations
-Importantly, the name of your animation file will determine if it is a Join, Leave or Update animation! If it ends with `_in` or contains `_in_` it is a Join animation; ending in `_out` or containing `_out_` makes it a Leave animation, while all other names are considered Update animations (often called attention seekers in other software). 
-
----
-
-# 6. Custom dialogic nodes
-
-## What are dialogic nodes?
-
-[Dialogic nodes](dialogic-nodes.md) are nodes that, in some way, execute something visibly, logically or audibly.
-They are generally managed by a subsystem and are found because they are automatically added to a group. This makes sure it doesn't matter where they are in the scene tree or how many of them exist.
-
-`DialogicNodes` does not need to be added to the `index.gd` file!
+## 为动画命名
+重要的是，动画文件的名字会决定它是入场、退场还是更新动画！如果名字以 `_in` 结尾或包含 `_in_`，它就是入场动画；以 `_out` 结尾或包含 `_out_` 则是退场动画，而其他所有名字都算更新动画（在其他软件里常被称为吸引注意力类的动画）。
 
 ---
 
-# 7. Custom Settings Pages
+# 6. 自定义 dialogic 节点
 
-An extension might want to add a dialogic settings editor. This is just a UI scene that has a script inheriting `DialogicSettingsPage`.
+## 什么是 dialogic 节点？
 
-- Overwrite some methods (just the ones that you need)
+[Dialogic 节点](dialogic-nodes.md) 是那些以某种方式在视觉上、逻辑上或听觉上执行某些东西的节点。
+它们通常由某个子系统管理，并通过被自动加入某个组来被发现。这样就保证了无论它们位于场景树的哪个位置、存在多少个，都不影响使用。
+
+`DialogicNodes` 不需要加到 `index.gd` 文件里！
+
+---
+
+# 7. 自定义设置页面
+
+扩展可能想要添加一个 dialogic 设置编辑器。它只是一个 UI 场景，其脚本继承 `DialogicSettingsPage`。
+
+- 重写一些方法（只写你需要的那些）
   - `_get_title()`
-  - _get_priority() -> return an integer that will influence the order of settings pages
-  - _refresh() -> whenever the settings are opened
-  - _about_to_close() -> whenever the settings editor closes
-  - _get_info_section() -> return a node in your scene that will be used as an info section
-Settings are usually saved either
-  - in the `project settings` in a subcategory of dialogic (e.g. `dialogic/myextension/setting`):
+  - _get_priority() -> 返回一个整数，影响设置页面的顺序
+  - _refresh() -> 每当设置被打开时
+  - _about_to_close() -> 每当设置编辑器关闭时
+  - _get_info_section() -> 返回你场景中的一个节点，用作信息区域
+设置的保存方式通常是
+  - 保存在 `project settings` 中 dialogic 的子分类下（例如 `dialogic/myextension/setting`）：
     - `ProjectSettings.set_setting('dialogic/myextension/setting', some_value)`
-  - You can also save/load editor settings with `DialogicUtil.set_editor_setting('setting', value)` and `DialogicUtil.get_editor_setting('setting')`.
-    - These depend on the project
-- Remember that all scripts in this scene must be in @tool mode.
+  - 你也可以用 `DialogicUtil.set_editor_setting('setting', value)` 和 `DialogicUtil.get_editor_setting('setting')` 保存/读取编辑器设置。
+    - 这些取决于项目
+- 记住，这个场景里的所有脚本都必须处于 @tool 模式。

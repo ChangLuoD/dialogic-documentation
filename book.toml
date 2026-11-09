@@ -1,9 +1,9 @@
 [book]
 authors = ["Emilio Coppola", "Jowan Spooner", "Dialogic Contributors"]
-language = "en"
+language = "zh-CN"
 src = "documentation"
-title = "Dialogic 2 Documentation"
-description = "Learn about Dialogic 2 and how to create beautiful dialogues in your games!"
+title = "Dialogic 2 文档"
+description = "了解 Dialogic 2，并在你的游戏中创作精美的对话！"
 
 [output.html]
 git-repository-url = "https://github.com/dialogic-godot/documentation/tree/main/"
